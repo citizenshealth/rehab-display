@@ -1,0 +1,204 @@
+{
+  "settings": {
+    "rotation_seconds": 8,
+    "show_dept_label": true
+  },
+  "slides": [
+
+    {
+      "id": "pt-1",
+      "dept": "pt",
+      "layout": "stat",
+      "tag": "Did You Know?",
+      "stat": "600+",
+      "unit": "Muscles",
+      "headline": "Your body is built to move.",
+      "body": "You have over <strong>600 muscles</strong> in your body. Physical therapy helps retrain the ones that forget how to work together after injury, surgery, or long periods of inactivity.",
+      "active": true
+    },
+    {
+      "id": "pt-2",
+      "dept": "pt",
+      "layout": "hero",
+      "tag": "Fun Fact",
+      "headline": "Walking 30 minutes a day can reduce fall risk by up to 23%.",
+      "body": "Regular movement is one of the most powerful medicines we have — and your PT team is here to help you move safely and confidently.",
+      "active": true
+    },
+    {
+      "id": "pt-3",
+      "dept": "pt",
+      "layout": "tip",
+      "tag": "Quick Tip",
+      "headline": "Ice or heat — which is right?",
+      "body": "<strong>Ice</strong> is best in the first 48–72 hours after an injury to reduce swelling.<br><br><strong>Heat</strong> works better after that — relaxing muscles and improving circulation. When in doubt, ask your PT!",
+      "active": true
+    },
+    {
+      "id": "pt-4",
+      "dept": "pt",
+      "layout": "split",
+      "tag": "History",
+      "headline": "PT has been healing people since WWI.",
+      "body": "Physical therapy was first widely used to rehabilitate soldiers returning from World War I — and it has been growing ever since. Today, PTs work in hospitals, schools, sports facilities, and homes.",
+      "active": true
+    },
+
+    {
+      "id": "ot-1",
+      "dept": "ot",
+      "layout": "stat",
+      "tag": "Did You Know?",
+      "stat": "27",
+      "unit": "Bones in your hand",
+      "headline": "Your hand is an engineering marvel.",
+      "body": "Each hand contains <strong>27 bones, 29 joints,</strong> and over 30 muscles. Occupational therapy specializes in helping all of them work together for everyday tasks.",
+      "active": true
+    },
+    {
+      "id": "ot-2",
+      "dept": "ot",
+      "layout": "hero",
+      "tag": "What Is OT?",
+      "headline": "OT helps you get back to the things that matter most.",
+      "body": "Cooking. Driving. Getting dressed. Playing with grandchildren. Occupational therapy is about returning to the activities that make your life yours.",
+      "active": true
+    },
+    {
+      "id": "ot-3",
+      "dept": "ot",
+      "layout": "tip",
+      "tag": "Quick Tip",
+      "headline": "\"Occupation\" means more than work.",
+      "body": "In occupational therapy, <strong>\"occupation\"</strong> refers to any meaningful activity — from brushing your teeth in the morning to playing a musical instrument. If it matters to you, OT can help.",
+      "active": true
+    },
+    {
+      "id": "ot-4",
+      "dept": "ot",
+      "layout": "split",
+      "tag": "Did You Know?",
+      "headline": "OT goes far beyond injury recovery.",
+      "body": "Occupational therapy also supports people with <strong>stroke recovery, developmental delays, autism, chronic pain,</strong> and aging-related challenges — helping people of all ages live more independently.",
+      "active": true
+    },
+
+    {
+      "id": "sp-1",
+      "dept": "sp",
+      "layout": "stat",
+      "tag": "Did You Know?",
+      "stat": "100+",
+      "unit": "Phonetic sounds",
+      "headline": "The human voice is extraordinary.",
+      "body": "The human voice can produce over <strong>100 different phonetic sounds</strong> across all the world's languages — and speech-language pathologists are experts in how all of them work.",
+      "active": true
+    },
+    {
+      "id": "sp-2",
+      "dept": "sp",
+      "layout": "hero",
+      "tag": "What Is Speech Therapy?",
+      "headline": "Speech therapy is about much more than how you speak.",
+      "body": "Speech-language pathologists also treat <strong>swallowing difficulties, memory challenges, voice disorders,</strong> and communication after stroke or brain injury.",
+      "active": true
+    },
+    {
+      "id": "sp-3",
+      "dept": "sp",
+      "layout": "tip",
+      "tag": "Science Fact",
+      "headline": "The brain can rewire itself.",
+      "body": "After a stroke, many patients regain speech ability through <strong>neuroplasticity</strong> — the brain's remarkable ability to form new pathways. Speech therapy is one of the most powerful tools for making that happen.",
+      "active": true
+    },
+    {
+      "id": "sp-4",
+      "dept": "sp",
+      "layout": "split",
+      "tag": "By the Numbers",
+      "headline": "1 in 12 children has a speech or language disorder.",
+      "body": "Speech-language pathologists work with children and adults alike — helping kids develop communication skills and helping adults rebuild them after illness or injury.",
+      "active": true
+    },
+
+    {
+      "id": "cr-1",
+      "dept": "cr",
+      "layout": "stat",
+      "tag": "Did You Know?",
+      "stat": "30%",
+      "unit": "Risk reduction",
+      "headline": "Cardiac rehab is one of the most effective treatments available.",
+      "body": "Completing a cardiac rehab program can reduce the risk of future heart events by up to <strong>30%</strong> — and it's covered by most insurance plans.",
+      "active": true
+    },
+    {
+      "id": "cr-2",
+      "dept": "cr",
+      "layout": "hero",
+      "tag": "Fun Fact",
+      "headline": "Your heart beats 100,000 times every single day.",
+      "body": "Cardiac rehab helps make every one of those beats more efficient — improving your heart's strength, endurance, and resilience over time.",
+      "active": true
+    },
+    {
+      "id": "cr-3",
+      "dept": "cr",
+      "layout": "tip",
+      "tag": "What to Expect",
+      "headline": "Cardiac rehab is about more than exercise.",
+      "body": "A complete program includes <strong>supervised exercise, nutrition guidance, stress management,</strong> and medication education — giving your heart every advantage for a strong recovery.",
+      "active": true
+    },
+    {
+      "id": "cr-4",
+      "dept": "cr",
+      "layout": "split",
+      "tag": "Important",
+      "headline": "Most eligible patients don't enroll — but they should.",
+      "body": "Only about <strong>20–30%</strong> of eligible heart patients enroll in cardiac rehab, even though it is one of the most proven, effective treatments in cardiovascular medicine. Ask your care team if it's right for you.",
+      "active": true
+    },
+
+    {
+      "id": "or-1",
+      "dept": "or",
+      "layout": "stat",
+      "tag": "Did You Know?",
+      "stat": "4×",
+      "unit": "Pressure per pound lost",
+      "headline": "Small weight changes make a big difference.",
+      "body": "For every pound of body weight lost, approximately <strong>4 pounds of pressure</strong> is removed from your knees with each step. Small changes can mean significant relief.",
+      "active": true
+    },
+    {
+      "id": "or-2",
+      "dept": "or",
+      "layout": "hero",
+      "tag": "Good to Know",
+      "headline": "Most orthopedic problems don't require surgery.",
+      "body": "Physical therapy, targeted injections, and lifestyle changes resolve the majority of orthopedic cases. Your care team always explores every non-surgical option first.",
+      "active": true
+    },
+    {
+      "id": "or-3",
+      "dept": "or",
+      "layout": "tip",
+      "tag": "Science Fact",
+      "headline": "Bone is alive — and always rebuilding.",
+      "body": "Bone is <strong>living tissue</strong> that constantly remodels itself throughout your life. That's why the right activity, nutrition, and treatment can make a real difference at any age.",
+      "active": true
+    },
+    {
+      "id": "or-4",
+      "dept": "or",
+      "layout": "split",
+      "tag": "Did You Know?",
+      "headline": "Cartilage has no blood supply.",
+      "body": "Unlike muscle, <strong>cartilage receives no direct blood supply</strong> — which is why joint injuries tend to heal more slowly. Your orthopedic team understands this biology and plans treatment accordingly.",
+      "active": true
+    }
+
+  ]
+}

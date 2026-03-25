@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizens Health — Ortho &amp; Rehab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pt:   #1B6B4A; --pt-l:  #E6F4EE;
+    --ot:   #1A4F8A; --ot-l:  #E6EFF8;
+    --sp:   #7A3B8C; --sp-l:  #F2EAF6;
+    --cr:   #B83B2A; --cr-l:  #FAEAE7;
+    --or:   #7A5C1E; --or-l:  #F5F0E6;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: #000;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  /* ── Slideshow container ── */
+  #slideshow {
+    width: 100vw; height: 100vh;
+    position: relative;
+  }
+
+  .slide {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    display: flex;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* ── Dot pattern overlay ── */
+  .dot-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background-image: radial-gradient(circle, rgba(255,255,255,0.15) 1.5px, transparent 1.5px);
+    background-size: 28px 28px;
+  }
+
+  /* ── Shared typography ── */
+  .slide-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: clamp(12px, 1.1vw, 16px);
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+  .slide-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(28px, 4.2vw, 64px);
+    line-height: 1.15;
+    letter-spacing: -0.5px;
+    margin-bottom: 18px;
+  }
+  .slide-body {
+    font-size: clamp(16px, 1.9vw, 28px);
+    line-height: 1.55;
+    font-weight: 300;
+  }
+  .slide-body strong { font-weight: 600; }
+  .dept-name {
+    display: flex; align-items: center; gap: 10px;
+    margin-top: 28px;
+    font-size: clamp(11px, 1vw, 15px);
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.6;
+  }
+  .dept-name::before {
+    content: '';
+    display: block;
+    width: 32px; height: 2px;
+    border-radius: 2px;
+    background: currentColor;
+    opacity: 0.5;
+  }
+
+  /* ── Progress bar ── */
+  #progress-bar {
+    position: fixed;
+    bottom: 0; left: 0;
+    height: 4px;
+    background: rgba(255,255,255,0.5);
+    z-index: 100;
+    transition: width linear;
+  }
+
+  /* ════════════════════════════
+     LAYOUT: STAT
+     Left colored panel | Right white panel
+  ════════════════════════════ */
+  .layout-stat .stat-panel {
+    width: 38%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 6%;
+    position: relative;
+    color: #fff;
+  }
+  .layout-stat .stat-num {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(56px, 9vw, 120px);
+    line-height: 1;
+    letter-spacing: -3px;
+    color: #fff;
+  }
+  .layout-stat .stat-unit {
+    font-size: clamp(14px, 1.6vw, 22px);
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0.75;
+    margin-top: 8px;
+    color: #fff;
+    text-align: center;
+  }
+  .layout-stat .text-panel {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6% 7% 6% 5%;
+    background: #fff;
+    color: #1A1A1A;
+  }
+  .layout-stat .text-panel .slide-body { color: #3D4452; }
+
+  /* ════════════════════════════
+     LAYOUT: HERO
+     Full bleed color, text over
+  ════════════════════════════ */
+  .layout-hero {
+    align-items: stretch;
+  }
+  .layout-hero .hero-inner {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 9% 11%;
+    position: relative;
+    color: #fff;
+  }
+  .layout-hero .slide-body { color: rgba(255,255,255,0.85); max-width: 72%; }
+  .layout-hero .slide-headline { max-width: 78%; }
+  .layout-hero .slide-tag { background: rgba(255,255,255,0.18); color: #fff; }
+  .layout-hero .dept-name { color: rgba(255,255,255,0.55); }
+
+  /* ════════════════════════════
+     LAYOUT: TIP
+     Accent bar + white background
+  ════════════════════════════ */
+  .layout-tip .tip-bar {
+    width: 8px; flex-shrink: 0;
+  }
+  .layout-tip .tip-content {
+    flex: 1;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7% 9%;
+    color: #1A1A1A;
+  }
+  .layout-tip .slide-body { color: #3D4452; }
+
+  /* ════════════════════════════
+     LAYOUT: SPLIT
+     Left color panel (headline) | Right white (body)
+  ════════════════════════════ */
+  .layout-split .split-left {
+    width: 46%;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7%;
+    color: #fff;
+    position: relative;
+  }
+  .layout-split .split-right {
+    flex: 1;
+    background: #fff;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 7%;
+    color: #1A1A1A;
+  }
+  .layout-split .split-right .slide-body { color: #3D4452; }
+
+  /* ════════════════════════════
+     LAYOUT: SPOTLIGHT
+     Photo left | Bio right
+  ════════════════════════════ */
+  .layout-spotlight .photo-panel {
+    width: 38%;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 6%;
+    position: relative;
+    color: #fff;
+  }
+  .layout-spotlight .staff-photo {
+    width: clamp(100px, 13vw, 180px);
+    height: clamp(100px, 13vw, 180px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(255,255,255,0.4);
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center;
+    font-size: clamp(36px, 5vw, 64px);
+    font-family: 'DM Serif Display', serif;
+  }
+  .layout-spotlight .staff-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(20px, 2.4vw, 34px);
+    color: #fff;
+    text-align: center;
+    line-height: 1.2;
+  }
+  .layout-spotlight .staff-title {
+    font-size: clamp(12px, 1.1vw, 16px);
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    margin-top: 6px;
+    letter-spacing: 0.5px;
+    font-weight: 400;
+  }
+  .layout-spotlight .bio-panel {
+    flex: 1;
+    background: #fff;
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 6% 7%;
+    color: #1A1A1A;
+  }
+  .layout-spotlight .bio-panel .slide-tag { }
+  .layout-spotlight .fun-fact-label {
+    font-size: clamp(11px, 1vw, 14px);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.5;
+    margin-top: 20px;
+  }
+  .layout-spotlight .fun-fact {
+    font-size: clamp(15px, 1.7vw, 24px);
+    line-height: 1.5;
+    font-weight: 300;
+    color: #3D4452;
+  }
+  .layout-spotlight .years-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 18px;
+    font-size: clamp(12px, 1vw, 15px);
+    font-weight: 500;
+    opacity: 0.55;
+  }
+</style>
+</head>
+<body>
+
+<div id="slideshow"></div>
+<div id="progress-bar"></div>
+
+<script>
+// ─── Load slides.json, then run the show ───────────────────────────────────
+
+const DEPT = {
+  pt: { name: 'Physical Therapy',    color: '#1B6B4A', light: '#E6F4EE' },
+  ot: { name: 'Occupational Therapy',color: '#1A4F8A', light: '#E6EFF8' },
+  sp: { name: 'Speech Therapy',      color: '#7A3B8C', light: '#F2EAF6' },
+  cr: { name: 'Cardiac Rehab',       color: '#B83B2A', light: '#FAEAE7' },
+  or: { name: 'Orthopedics',         color: '#7A5C1E', light: '#F5F0E6' },
+};
+
+let slides = [], current = 0, timer = null, progressTimer = null;
+
+async function init() {
+  // Cache-bust so ScreenCloud always gets fresh content
+  const res = await fetch('slides.json?v=' + Date.now());
+  const data = await res.json();
+  const rotationMs = (data.settings?.rotation_seconds || 8) * 1000;
+
+  slides = data.slides.filter(s => s.active !== false);
+  if (!slides.length) return;
+
+  const container = document.getElementById('slideshow');
+  slides.forEach((s, i) => {
+    const el = buildSlide(s);
+    el.dataset.index = i;
+    container.appendChild(el);
+  });
+
+  showSlide(0, rotationMs);
+}
+
+function showSlide(index, rotationMs) {
+  const all = document.querySelectorAll('.slide');
+  all.forEach(el => el.classList.remove('active'));
+  all[index].classList.add('active');
+  current = index;
+  animateProgress(rotationMs);
+  clearTimeout(timer);
+  timer = setTimeout(() => {
+    const next = (current + 1) % slides.length;
+    showSlide(next, rotationMs);
+  }, rotationMs);
+}
+
+function animateProgress(ms) {
+  const bar = document.getElementById('progress-bar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    bar.style.transition = `width ${ms}ms linear`;
+    bar.style.width = '100%';
+  }));
+}
+
+// ─── Slide builder ─────────────────────────────────────────────────────────
+
+function buildSlide(s) {
+  const d = DEPT[s.dept] || { name: s.dept, color: '#444', light: '#eee' };
+  const wrap = document.createElement('div');
+  wrap.className = 'slide layout-' + s.layout;
+
+  if (s.layout === 'stat')       wrap.innerHTML = buildStat(s, d);
+  else if (s.layout === 'hero')  wrap.innerHTML = buildHero(s, d);
+  else if (s.layout === 'tip')   wrap.innerHTML = buildTip(s, d);
+  else if (s.layout === 'split') wrap.innerHTML = buildSplit(s, d);
+  else if (s.layout === 'spotlight') wrap.innerHTML = buildSpotlight(s, d);
+
+  return wrap;
+}
+
+function buildStat(s, d) {
+  return `
+    <div class="stat-panel" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      <div class="stat-num">${s.stat}</div>
+      <div class="stat-unit">${s.unit}</div>
+    </div>
+    <div class="text-panel">
+      <span class="slide-tag" style="background:${d.light};color:${d.color}">${s.tag}</span>
+      <div class="slide-headline">${s.headline}</div>
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+function buildHero(s, d) {
+  return `
+    <div class="hero-inner" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      <span class="slide-tag">${s.tag}</span>
+      <div class="slide-headline" style="color:#fff">${s.headline}</div>
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name">${d.name}</div>
+    </div>`;
+}
+
+function buildTip(s, d) {
+  return `
+    <div class="tip-bar" style="background:${d.color}"></div>
+    <div class="tip-content" style="background:${d.light}">
+      <span class="slide-tag" style="background:rgba(255,255,255,0.6);color:${d.color}">${s.tag}</span>
+      <div class="slide-headline" style="color:#1A1A1A">${s.headline}</div>
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+function buildSplit(s, d) {
+  return `
+    <div class="split-left" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      <span class="slide-tag" style="background:rgba(255,255,255,0.18);color:#fff">${s.tag}</span>
+      <div class="slide-headline" style="color:#fff">${s.headline}</div>
+    </div>
+    <div class="split-right">
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+function buildSpotlight(s, d) {
+  const initials = (s.name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  const photoEl = s.photo
+    ? `<img class="staff-photo" src="${s.photo}" alt="${s.name}">`
+    : `<div class="staff-photo">${initials}</div>`;
+  const yearsLine = s.years
+    ? `<div class="years-badge" style="color:${d.color}">&#9679; ${s.years} year${s.years == 1 ? '' : 's'} at Citizens Health</div>`
+    : '';
+  return `
+    <div class="photo-panel" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      ${photoEl}
+      <div class="staff-name">${s.name || ''}</div>
+      <div class="staff-title">${s.title || ''}</div>
+    </div>
+    <div class="bio-panel">
+      <span class="slide-tag" style="background:${d.light};color:${d.color}">Meet the Team</span>
+      <div class="slide-headline" style="color:#1A1A1A;font-size:clamp(22px,3vw,44px)">${s.bio || ''}</div>
+      <div class="fun-fact-label" style="color:${d.color}">Fun fact</div>
+      <div class="fun-fact">${s.fun_fact || ''}</div>
+      ${yearsLine}
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+init();
+</script>
+</body>
+</html>
