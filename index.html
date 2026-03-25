@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Citizens Health — Ortho &amp; Rehab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --pt:  #1B6B4A; --pt-l: #E6F4EE;
+    --ot:  #1A4F8A; --ot-l: #E6EFF8;
+    --sp:  #7A3B8C; --sp-l: #F2EAF6;
+    --cr:  #B83B2A; --cr-l: #FAEAE7;
+    --or:  #7A5C1E; --or-l: #F5F0E6;
+  }
+
+  html, body { width:100%; height:100%; background:#000; overflow:hidden; font-family:'DM Sans',sans-serif; }
+
+  #slideshow { width:100vw; height:100vh; position:relative; }
+
+  .slide {
+    position:absolute; inset:0; width:100%; height:100%;
+    display:flex; opacity:0; transition:opacity 0.8s ease; pointer-events:none;
+  }
+  .slide.active { opacity:1; pointer-events:auto; }
+
+  .dot-bg {
+    position:absolute; inset:0; pointer-events:none;
+    background-image:radial-gradient(circle, rgba(255,255,255,0.15) 1.5px, transparent 1.5px);
+    background-size:28px 28px;
+  }
+
+  #progress-bar {
+    position:fixed; bottom:0; left:0; height:4px;
+    background:rgba(255,255,255,0.45); z-index:100; transition:width linear;
+  }
+
+  .slide-tag {
+    display:inline-block; padding:6px 16px; border-radius:30px;
+    font-size:clamp(12px,1.1vw,16px); font-weight:600;
+    letter-spacing:1.8px; text-transform:uppercase; margin-bottom:20px;
+  }
+  .slide-headline {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(28px,4.2vw,64px); line-height:1.15;
+    letter-spacing:-0.5px; margin-bottom:18px;
+  }
+  .slide-body { font-size:clamp(16px,1.9vw,28px); line-height:1.55; font-weight:300; }
+  .slide-body strong { font-weight:600; }
+  .dept-name {
+    display:flex; align-items:center; gap:10px; margin-top:28px;
+    font-size:clamp(11px,1vw,15px); font-weight:600;
+    letter-spacing:2px; text-transform:uppercase; opacity:0.6;
+  }
+  .dept-name::before {
+    content:''; display:block; width:32px; height:2px;
+    border-radius:2px; background:currentColor; opacity:0.5;
+  }
+
+  /* STAT */
+  .layout-stat .stat-panel {
+    width:38%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:6%; position:relative;
+  }
+  .layout-stat .stat-num {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(56px,9vw,120px); line-height:1; letter-spacing:-3px; color:#fff;
+  }
+  .layout-stat .stat-unit {
+    font-size:clamp(14px,1.6vw,22px); font-weight:500;
+    letter-spacing:2px; text-transform:uppercase; opacity:0.75; margin-top:8px; color:#fff; text-align:center;
+  }
+  .layout-stat .text-panel {
+    flex:1; display:flex; flex-direction:column; justify-content:center;
+    padding:6% 7% 6% 5%; background:#fff; color:#1A1A1A;
+  }
+  .layout-stat .text-panel .slide-body { color:#3D4452; }
+
+  /* HERO */
+  .layout-hero { align-items:stretch; }
+  .layout-hero .hero-inner {
+    flex:1; display:flex; flex-direction:column; justify-content:center;
+    padding:9% 11%; position:relative; color:#fff;
+  }
+  .layout-hero .slide-body { color:rgba(255,255,255,0.85); max-width:72%; }
+  .layout-hero .slide-headline { max-width:78%; }
+  .layout-hero .slide-tag { background:rgba(255,255,255,0.18); color:#fff; }
+  .layout-hero .dept-name { color:rgba(255,255,255,0.55); }
+
+  /* TIP */
+  .layout-tip .tip-bar { width:8px; flex-shrink:0; }
+  .layout-tip .tip-content {
+    flex:1; display:flex; flex-direction:column; justify-content:center; padding:7% 9%;
+  }
+  .layout-tip .slide-body { color:#3D4452; }
+
+  /* SPLIT */
+  .layout-split .split-left {
+    width:46%; display:flex; flex-direction:column;
+    justify-content:center; padding:7%; color:#fff; position:relative;
+  }
+  .layout-split .split-right {
+    flex:1; background:#fff; display:flex; flex-direction:column;
+    justify-content:center; padding:7%; color:#1A1A1A;
+  }
+  .layout-split .split-right .slide-body { color:#3D4452; }
+
+  /* SPOTLIGHT */
+  .layout-spotlight .photo-panel {
+    width:38%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding:6%; position:relative; color:#fff;
+  }
+  .layout-spotlight .staff-photo {
+    width:clamp(100px,13vw,180px); height:clamp(100px,13vw,180px);
+    border-radius:50%; object-fit:cover; border:4px solid rgba(255,255,255,0.4);
+    margin-bottom:20px; background:rgba(255,255,255,0.15);
+    display:flex; align-items:center; justify-content:center;
+    font-size:clamp(36px,5vw,64px); font-family:'DM Serif Display',serif; color:#fff;
+  }
+  .layout-spotlight .staff-name {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(20px,2.4vw,34px); color:#fff; text-align:center; line-height:1.2;
+  }
+  .layout-spotlight .staff-title {
+    font-size:clamp(12px,1.1vw,16px); color:rgba(255,255,255,0.75);
+    text-align:center; margin-top:6px; font-weight:400;
+  }
+  .layout-spotlight .bio-panel {
+    flex:1; background:#fff; display:flex; flex-direction:column;
+    justify-content:center; padding:6% 7%; color:#1A1A1A;
+  }
+  .layout-spotlight .fun-fact-label {
+    font-size:clamp(11px,1vw,14px); font-weight:600; letter-spacing:1.5px;
+    text-transform:uppercase; margin-bottom:8px; opacity:0.5; margin-top:20px;
+  }
+  .layout-spotlight .fun-fact {
+    font-size:clamp(15px,1.7vw,24px); line-height:1.5; font-weight:300; color:#3D4452;
+  }
+  .layout-spotlight .years-badge {
+    display:inline-flex; align-items:center; gap:8px; margin-top:18px;
+    font-size:clamp(12px,1vw,15px); font-weight:500; opacity:0.55;
+  }
+</style>
+</head>
+<body>
+
+<div id="slideshow"></div>
+<div id="progress-bar"></div>
+
+<script>
+
+// =====================================================================
+//  SLIDE CONTENT
+//  This is the only section you need to edit to update the display.
+//
+//  LAYOUTS:  "stat" | "hero" | "tip" | "split" | "spotlight"
+//  DEPTS:    "pt"   | "ot"   | "sp"  | "cr"    | "or"
+//
+//  Set  active: false  to hide a slide without deleting it.
+//  Change  rotation_seconds  to control how long each slide shows.
+// =====================================================================
+
+const CONTENT = {
+  settings: {
+    rotation_seconds: 8
+  },
+  slides: [
+
+    // ── PHYSICAL THERAPY ──────────────────────────────────────────
+    {
+      id: "pt-1", dept: "pt", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "600+", unit: "Muscles",
+      headline: "Your body is built to move.",
+      body: "You have over <strong>600 muscles</strong> in your body. Physical therapy helps retrain the ones that forget how to work together after injury, surgery, or long periods of inactivity."
+    },
+    {
+      id: "pt-2", dept: "pt", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "Walking 30 minutes a day can reduce fall risk by up to 23%.",
+      body: "Regular movement is one of the most powerful medicines we have — and your PT team is here to help you move safely and confidently."
+    },
+    {
+      id: "pt-3", dept: "pt", layout: "tip", active: true,
+      tag: "Quick Tip",
+      headline: "Ice or heat — which is right?",
+      body: "<strong>Ice</strong> is best in the first 48–72 hours after an injury to reduce swelling.<br><br><strong>Heat</strong> works better after that — relaxing muscles and improving circulation. When in doubt, ask your PT!"
+    },
+    {
+      id: "pt-4", dept: "pt", layout: "split", active: true,
+      tag: "History",
+      headline: "PT has been healing people since WWI.",
+      body: "Physical therapy was first widely used to rehabilitate soldiers returning from World War I — and it has been growing ever since. Today, PTs work in hospitals, schools, sports facilities, and homes."
+    },
+
+    // ── OCCUPATIONAL THERAPY ──────────────────────────────────────
+    {
+      id: "ot-1", dept: "ot", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "27", unit: "Bones in your hand",
+      headline: "Your hand is an engineering marvel.",
+      body: "Each hand contains <strong>27 bones, 29 joints,</strong> and over 30 muscles. Occupational therapy specializes in helping all of them work together for everyday tasks."
+    },
+    {
+      id: "ot-2", dept: "ot", layout: "hero", active: true,
+      tag: "What Is OT?",
+      headline: "OT helps you get back to the things that matter most.",
+      body: "Cooking. Driving. Getting dressed. Playing with grandchildren. Occupational therapy is about returning to the activities that make your life yours."
+    },
+    {
+      id: "ot-3", dept: "ot", layout: "tip", active: true,
+      tag: "Quick Tip",
+      headline: "\"Occupation\" means more than work.",
+      body: "In occupational therapy, <strong>\"occupation\"</strong> refers to any meaningful activity — from brushing your teeth in the morning to playing a musical instrument. If it matters to you, OT can help."
+    },
+    {
+      id: "ot-4", dept: "ot", layout: "split", active: true,
+      tag: "Did You Know?",
+      headline: "OT goes far beyond injury recovery.",
+      body: "Occupational therapy also supports people with <strong>stroke recovery, developmental delays, autism, chronic pain,</strong> and aging-related challenges — helping people of all ages live more independently."
+    },
+
+    // ── SPEECH THERAPY ────────────────────────────────────────────
+    {
+      id: "sp-1", dept: "sp", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "100+", unit: "Phonetic sounds",
+      headline: "The human voice is extraordinary.",
+      body: "The human voice can produce over <strong>100 different phonetic sounds</strong> across all the world's languages — and speech-language pathologists are experts in how all of them work."
+    },
+    {
+      id: "sp-2", dept: "sp", layout: "hero", active: true,
+      tag: "What Is Speech Therapy?",
+      headline: "Speech therapy is about much more than how you speak.",
+      body: "Speech-language pathologists also treat <strong>swallowing difficulties, memory challenges, voice disorders,</strong> and communication after stroke or brain injury."
+    },
+    {
+      id: "sp-3", dept: "sp", layout: "tip", active: true,
+      tag: "Science Fact",
+      headline: "The brain can rewire itself.",
+      body: "After a stroke, many patients regain speech ability through <strong>neuroplasticity</strong> — the brain's remarkable ability to form new pathways. Speech therapy is one of the most powerful tools for making that happen."
+    },
+    {
+      id: "sp-4", dept: "sp", layout: "split", active: true,
+      tag: "By the Numbers",
+      headline: "1 in 12 children has a speech or language disorder.",
+      body: "Speech-language pathologists work with children and adults alike — helping kids develop communication skills and helping adults rebuild them after illness or injury."
+    },
+
+    // ── CARDIAC REHAB ─────────────────────────────────────────────
+    {
+      id: "cr-1", dept: "cr", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "30%", unit: "Risk reduction",
+      headline: "Cardiac rehab is one of the most effective treatments available.",
+      body: "Completing a cardiac rehab program can reduce the risk of future heart events by up to <strong>30%</strong> — and it's covered by most insurance plans."
+    },
+    {
+      id: "cr-2", dept: "cr", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "Your heart beats 100,000 times every single day.",
+      body: "Cardiac rehab helps make every one of those beats more efficient — improving your heart's strength, endurance, and resilience over time."
+    },
+    {
+      id: "cr-3", dept: "cr", layout: "tip", active: true,
+      tag: "What to Expect",
+      headline: "Cardiac rehab is about more than exercise.",
+      body: "A complete program includes <strong>supervised exercise, nutrition guidance, stress management,</strong> and medication education — giving your heart every advantage for a strong recovery."
+    },
+    {
+      id: "cr-4", dept: "cr", layout: "split", active: true,
+      tag: "Important",
+      headline: "Most eligible patients don't enroll — but they should.",
+      body: "Only about <strong>20–30%</strong> of eligible heart patients enroll in cardiac rehab, even though it is one of the most proven, effective treatments in cardiovascular medicine. Ask your care team if it's right for you."
+    },
+
+    // ── ORTHOPEDICS ───────────────────────────────────────────────
+    {
+      id: "or-1", dept: "or", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "4×", unit: "Pressure per pound lost",
+      headline: "Small weight changes make a big difference.",
+      body: "For every pound of body weight lost, approximately <strong>4 pounds of pressure</strong> is removed from your knees with each step. Small changes can mean significant relief."
+    },
+    {
+      id: "or-2", dept: "or", layout: "hero", active: true,
+      tag: "Good to Know",
+      headline: "Most orthopedic problems don't require surgery.",
+      body: "Physical therapy, targeted injections, and lifestyle changes resolve the majority of orthopedic cases. Your care team always explores every non-surgical option first."
+    },
+    {
+      id: "or-3", dept: "or", layout: "tip", active: true,
+      tag: "Science Fact",
+      headline: "Bone is alive — and always rebuilding.",
+      body: "Bone is <strong>living tissue</strong> that constantly remodels itself throughout your life. That's why the right activity, nutrition, and treatment can make a real difference at any age."
+    },
+    {
+      id: "or-4", dept: "or", layout: "split", active: true,
+      tag: "Did You Know?",
+      headline: "Cartilage has no blood supply.",
+      body: "Unlike muscle, <strong>cartilage receives no direct blood supply</strong> — which is why joint injuries tend to heal more slowly. Your orthopedic team understands this biology and plans treatment accordingly."
+    },
+
+    // ── STAFF SPOTLIGHTS — add yours here ─────────────────────────
+    // Copy this block, fill in the fields, and set active: true
+    //
+    // {
+    //   id: "spotlight-1", dept: "pt", layout: "spotlight", active: false,
+    //   name: "Jane Doe, PT, DPT",
+    //   title: "Physical Therapist",
+    //   years: 6,
+    //   bio: "Jane specializes in post-surgical rehab and sports injuries.",
+    //   fun_fact: "She ran her first half marathon last spring and is training for a full.",
+    //   photo: ""
+    // },
+
+  ]
+};
+
+// =====================================================================
+//  DISPLAY ENGINE — no need to edit below this line
+// =====================================================================
+
+const DEPT = {
+  pt: { name: 'Physical Therapy',     color: '#1B6B4A', light: '#E6F4EE' },
+  ot: { name: 'Occupational Therapy', color: '#1A4F8A', light: '#E6EFF8' },
+  sp: { name: 'Speech Therapy',       color: '#7A3B8C', light: '#F2EAF6' },
+  cr: { name: 'Cardiac Rehab',        color: '#B83B2A', light: '#FAEAE7' },
+  or: { name: 'Orthopedics',          color: '#7A5C1E', light: '#F5F0E6' },
+};
+
+let current = 0, timer = null;
+const rotationMs = (CONTENT.settings.rotation_seconds || 8) * 1000;
+const slides = CONTENT.slides.filter(s => s.active !== false);
+
+function init() {
+  const container = document.getElementById('slideshow');
+  slides.forEach(s => container.appendChild(buildSlide(s)));
+  showSlide(0);
+}
+
+function showSlide(index) {
+  document.querySelectorAll('.slide').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.slide')[index].classList.add('active');
+  current = index;
+  animateProgress();
+  clearTimeout(timer);
+  timer = setTimeout(() => showSlide((current + 1) % slides.length), rotationMs);
+}
+
+function animateProgress() {
+  const bar = document.getElementById('progress-bar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    bar.style.transition = `width ${rotationMs}ms linear`;
+    bar.style.width = '100%';
+  }));
+}
+
+function buildSlide(s) {
+  const d = DEPT[s.dept] || { name: s.dept, color: '#444', light: '#eee' };
+  const el = document.createElement('div');
+  el.className = 'slide layout-' + s.layout;
+  if      (s.layout === 'stat')      el.innerHTML = buildStat(s, d);
+  else if (s.layout === 'hero')      el.innerHTML = buildHero(s, d);
+  else if (s.layout === 'tip')       el.innerHTML = buildTip(s, d);
+  else if (s.layout === 'split')     el.innerHTML = buildSplit(s, d);
+  else if (s.layout === 'spotlight') el.innerHTML = buildSpotlight(s, d);
+  return el;
+}
+
+function buildStat(s, d) {
+  return `
+    <div class="stat-panel" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      <div class="stat-num">${s.stat}</div>
+      <div class="stat-unit">${s.unit}</div>
+    </div>
+    <div class="text-panel">
+      <span class="slide-tag" style="background:${d.light};color:${d.color}">${s.tag}</span>
+      <div class="slide-headline">${s.headline}</div>
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+function buildHero(s, d) {
+  return `
+    <div class="hero-inner" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      <span class="slide-tag">${s.tag}</span>
+      <div class="slide-headline">${s.headline}</div>
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name">${d.name}</div>
+    </div>`;
+}
+
+function buildTip(s, d) {
+  return `
+    <div class="tip-bar" style="background:${d.color}"></div>
+    <div class="tip-content" style="background:${d.light}">
+      <span class="slide-tag" style="background:rgba(255,255,255,0.6);color:${d.color}">${s.tag}</span>
+      <div class="slide-headline" style="color:#1A1A1A">${s.headline}</div>
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+function buildSplit(s, d) {
+  return `
+    <div class="split-left" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      <span class="slide-tag" style="background:rgba(255,255,255,0.18);color:#fff">${s.tag}</span>
+      <div class="slide-headline" style="color:#fff">${s.headline}</div>
+    </div>
+    <div class="split-right">
+      <div class="slide-body">${s.body}</div>
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+function buildSpotlight(s, d) {
+  const initials = (s.name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
+  const photoEl = s.photo
+    ? `<img class="staff-photo" src="${s.photo}" alt="${s.name}">`
+    : `<div class="staff-photo">${initials}</div>`;
+  const yearsLine = s.years
+    ? `<div class="years-badge" style="color:${d.color}">&#9679; ${s.years} year${s.years == 1 ? '' : 's'} at Citizens Health</div>`
+    : '';
+  return `
+    <div class="photo-panel" style="background:${d.color}">
+      <div class="dot-bg"></div>
+      ${photoEl}
+      <div class="staff-name">${s.name || ''}</div>
+      <div class="staff-title">${s.title || ''}</div>
+    </div>
+    <div class="bio-panel">
+      <span class="slide-tag" style="background:${d.light};color:${d.color}">Meet the Team</span>
+      <div class="slide-headline" style="color:#1A1A1A;font-size:clamp(22px,3vw,44px)">${s.bio || ''}</div>
+      <div class="fun-fact-label" style="color:${d.color}">Fun fact</div>
+      <div class="fun-fact">${s.fun_fact || ''}</div>
+      ${yearsLine}
+      <div class="dept-name" style="color:${d.color}">${d.name}</div>
+    </div>`;
+}
+
+init();
+</script>
+</body>
+</html>
