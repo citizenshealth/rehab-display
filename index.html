@@ -144,6 +144,38 @@
     display:inline-flex; align-items:center; gap:8px; margin-top:18px;
     font-size:clamp(12px,1vw,15px); font-weight:500; opacity:0.55;
   }
+
+  /* WEATHER */
+  .layout-weather { background:#0a1628; align-items:stretch; flex-direction:row; }
+  .weather-left {
+    width:42%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:6%; position:relative;
+    border-right:1px solid rgba(255,255,255,0.08);
+  }
+  .weather-icon { font-size:clamp(56px,10vw,120px); line-height:1; margin-bottom:16px; }
+  .weather-temp {
+    font-family:'DM Serif Display',serif;
+    font-size:clamp(52px,9vw,110px); line-height:1; color:#fff; letter-spacing:-3px;
+  }
+  .weather-temp sup { font-size:0.4em; vertical-align:super; letter-spacing:0; opacity:0.7; }
+  .weather-desc { font-size:clamp(14px,1.8vw,24px); color:rgba(255,255,255,0.7); margin-top:8px; font-weight:300; text-align:center; }
+  .weather-location { font-size:clamp(11px,1vw,14px); color:rgba(255,255,255,0.4); letter-spacing:2px; text-transform:uppercase; margin-top:10px; font-weight:500; }
+  .weather-right { flex:1; display:flex; flex-direction:column; justify-content:center; padding:6% 7%; }
+  .weather-today { margin-bottom:24px; padding-bottom:24px; border-bottom:1px solid rgba(255,255,255,0.1); }
+  .weather-label { font-size:clamp(10px,1vw,13px); font-weight:600; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.4); margin-bottom:8px; }
+  .weather-hilo { font-size:clamp(18px,2.4vw,34px); color:#fff; font-weight:300; }
+  .weather-hilo .hi { color:#f5a623; font-weight:500; }
+  .weather-hilo .lo { color:#7eb8f7; }
+  .forecast-row { display:flex; gap:0; margin-top:4px; }
+  .forecast-day { flex:1; display:flex; flex-direction:column; align-items:center; padding:14px 8px; border-radius:10px; background:rgba(255,255,255,0.05); margin:0 5px; }
+  .forecast-day:first-child { margin-left:0; }
+  .forecast-day:last-child  { margin-right:0; }
+  .fc-name { font-size:clamp(10px,1vw,13px); font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px; }
+  .fc-icon { font-size:clamp(20px,3vw,36px); margin-bottom:8px; }
+  .fc-temps { font-size:clamp(12px,1.3vw,18px); color:#fff; font-weight:300; }
+  .fc-temps .hi { color:#f5a623; font-weight:500; }
+  .fc-temps .lo { color:#7eb8f7; }
 </style>
 </head>
 <body>
@@ -170,7 +202,7 @@ const CONTENT = {
   },
   slides: [
 
-    // ── PHYSICAL THERAPY ──────────────────────────────────────────
+    // ── ROUND 1 ───────────────────────────────────────────────────
     {
       id: "pt-1", dept: "pt", layout: "stat", active: true,
       tag: "Did You Know?",
@@ -179,58 +211,38 @@ const CONTENT = {
       body: "You have over <strong>600 muscles</strong> in your body. Physical therapy helps retrain the ones that forget how to work together after injury, surgery, or long periods of inactivity."
     },
     {
-      id: "pt-2", dept: "pt", layout: "hero", active: true,
-      tag: "Fun Fact",
-      headline: "Walking 30 minutes a day can reduce fall risk by up to 23%.",
-      body: "Regular movement is one of the most powerful medicines we have — and your PT team is here to help you move safely and confidently."
-    },
-    {
-      id: "pt-3", dept: "pt", layout: "tip", active: true,
-      tag: "Quick Tip",
-      headline: "Ice or heat — which is right?",
-      body: "<strong>Ice</strong> is best in the first 48–72 hours after an injury to reduce swelling.<br><br><strong>Heat</strong> works better after that — relaxing muscles and improving circulation. When in doubt, ask your PT!"
-    },
-    {
-      id: "pt-4", dept: "pt", layout: "split", active: true,
-      tag: "History",
-      headline: "PT has been healing people since WWI.",
-      body: "Physical therapy was first widely used to rehabilitate soldiers returning from World War I — and it has been growing ever since. Today, PTs work in hospitals, schools, sports facilities, and homes."
-    },
-
-    // ── OCCUPATIONAL THERAPY ──────────────────────────────────────
-    {
-      id: "ot-1", dept: "ot", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "27", unit: "Bones in your hand",
-      headline: "Your hand is an engineering marvel.",
-      body: "Each hand contains <strong>27 bones, 29 joints,</strong> and over 30 muscles. Occupational therapy specializes in helping all of them work together for everyday tasks."
-    },
-    {
-      id: "ot-2", dept: "ot", layout: "hero", active: true,
+      id: "ot-1", dept: "ot", layout: "hero", active: true,
       tag: "What Is OT?",
       headline: "OT helps you get back to the things that matter most.",
       body: "Cooking. Driving. Getting dressed. Playing with grandchildren. Occupational therapy is about returning to the activities that make your life yours."
     },
     {
-      id: "ot-3", dept: "ot", layout: "tip", active: true,
-      tag: "Quick Tip",
-      headline: "\"Occupation\" means more than work.",
-      body: "In occupational therapy, <strong>\"occupation\"</strong> refers to any meaningful activity — from brushing your teeth in the morning to playing a musical instrument. If it matters to you, OT can help."
+      id: "sp-1", dept: "sp", layout: "tip", active: true,
+      tag: "Science Fact",
+      headline: "The brain can rewire itself.",
+      body: "Scientists once believed the brain was fixed after childhood. We now know it remains capable of forming new connections throughout life — a property called <strong>neuroplasticity</strong>. It's one of the most remarkable discoveries in modern neuroscience."
     },
     {
-      id: "ot-4", dept: "ot", layout: "split", active: true,
+      id: "cr-1", dept: "cr", layout: "split", active: true,
       tag: "Did You Know?",
-      headline: "OT goes far beyond injury recovery.",
-      body: "Occupational therapy also supports people with <strong>stroke recovery, developmental delays, autism, chronic pain,</strong> and aging-related challenges — helping people of all ages live more independently."
+      headline: "Cardiac rehab has roots going back to the 1950s.",
+      body: "Before the 1950s, doctors prescribed bed rest for weeks after a heart attack. Researchers eventually discovered that carefully supervised movement led to better outcomes — and cardiac rehabilitation was born."
+    },
+    {
+      id: "or-1", dept: "or", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "206", unit: "Bones in the body",
+      headline: "You're born with nearly 300 bones.",
+      body: "Babies are born with around <strong>270–300 bones</strong>, many of which gradually fuse together. By adulthood, the human skeleton settles at <strong>206 bones</strong> — a process that isn't complete until your mid-20s."
     },
 
-    // ── SPEECH THERAPY ────────────────────────────────────────────
+    // ── ROUND 2 ───────────────────────────────────────────────────
     {
-      id: "sp-1", dept: "sp", layout: "stat", active: true,
+      id: "ot-2", dept: "ot", layout: "stat", active: true,
       tag: "Did You Know?",
-      stat: "100+", unit: "Phonetic sounds",
-      headline: "The human voice is extraordinary.",
-      body: "The human voice can produce over <strong>100 different phonetic sounds</strong> across all the world's languages — and speech-language pathologists are experts in how all of them work."
+      stat: "27", unit: "Bones in your hand",
+      headline: "Your hand is an engineering marvel.",
+      body: "Each hand contains <strong>27 bones, 29 joints,</strong> and over 30 muscles. Occupational therapy specializes in helping all of them work together for everyday tasks."
     },
     {
       id: "sp-2", dept: "sp", layout: "hero", active: true,
@@ -239,70 +251,88 @@ const CONTENT = {
       body: "Speech-language pathologists also treat <strong>swallowing difficulties, memory challenges, voice disorders,</strong> and communication after stroke or brain injury."
     },
     {
-      id: "sp-3", dept: "sp", layout: "tip", active: true,
+      id: "cr-2", dept: "cr", layout: "tip", active: true,
+      tag: "What to Expect",
+      headline: "Cardiac rehab is about more than exercise.",
+      body: "A complete program includes <strong>supervised exercise, nutrition guidance, stress management,</strong> and medication education — giving your heart every advantage for a strong recovery."
+    },
+    {
+      id: "or-2", dept: "or", layout: "split", active: true,
+      tag: "Did You Know?",
+      headline: "The knee is the largest joint in the human body.",
+      body: "It's also one of the most complex — held together by <strong>four major ligaments, two menisci, and over a dozen tendons</strong>. Despite its complexity, the knee is essentially a hinge that handles forces several times your body weight with every step."
+    },
+    {
+      id: "pt-2", dept: "pt", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "The average person takes between 3,000 and 9,000 steps a day.",
+      body: "Studies tracking real-world movement found enormous variation — from sedentary adults under 3,000 steps to highly active people well over 10,000. The most active? Postal workers and farmers, who routinely top 15,000."
+    },
+
+    // ── ROUND 3 ───────────────────────────────────────────────────
+    {
+      id: "sp-3", dept: "sp", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "100+", unit: "Phonetic sounds",
+      headline: "The human voice is extraordinary.",
+      body: "The human voice can produce over <strong>100 different phonetic sounds</strong> across all the world's languages — and speech-language pathologists are experts in how all of them work."
+    },
+    {
+      id: "cr-3", dept: "cr", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "Your heart beats about 100,000 times every single day.",
+      body: "That's roughly <strong>35 million beats a year</strong> — and over 2.5 billion in an average lifetime. The heart is the hardest-working muscle in the body, and unlike most muscles, it never gets to fully rest."
+    },
+    {
+      id: "or-3", dept: "or", layout: "tip", active: true,
       tag: "Science Fact",
-      headline: "The brain can rewire itself.",
-      body: "After a stroke, many patients regain speech ability through <strong>neuroplasticity</strong> — the brain's remarkable ability to form new pathways. Speech therapy is one of the most powerful tools for making that happen."
+      headline: "Bone is alive — and always rebuilding.",
+      body: "Bone is <strong>living tissue</strong>, not the static structure most people imagine. Your skeleton completely replaces itself roughly every 10 years through a process called remodeling, where old bone is broken down and new bone is built in its place."
+    },
+    {
+      id: "pt-3", dept: "pt", layout: "split", active: true,
+      tag: "History",
+      headline: "PT has been healing people since WWI.",
+      body: "Physical therapy was first widely used to rehabilitate soldiers returning from World War I — and it has been growing ever since. Today, PTs work in hospitals, schools, sports facilities, and homes."
+    },
+    {
+      id: "ot-3", dept: "ot", layout: "tip", active: true,
+      tag: "Did You Know?",
+      headline: "\"Occupation\" means more than work.",
+      body: "In occupational therapy, <strong>\"occupation\"</strong> refers to any activity that occupies a person's time and holds personal meaning — from brushing your teeth to playing chess to tending a garden. The field was built around the idea that meaningful activity is central to human health."
+    },
+
+    // ── ROUND 4 ───────────────────────────────────────────────────
+    {
+      id: "cr-4", dept: "cr", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "2.5B", unit: "Heartbeats in a lifetime",
+      headline: "The heart is the body's most tireless worker.",
+      body: "In a single hour, your heart pumps roughly <strong>70 gallons of blood</strong> through about 60,000 miles of blood vessels. Laid end to end, those vessels would circle the Earth more than twice."
+    },
+    {
+      id: "or-4", dept: "or", layout: "hero", active: true,
+      tag: "Did You Know?",
+      headline: "Cartilage has no blood supply of its own.",
+      body: "Unlike most tissues in the body, cartilage contains no blood vessels. It gets its nutrients through a process called <strong>diffusion</strong> from the surrounding joint fluid — which is part of why joint injuries tend to heal more slowly than muscle injuries."
+    },
+    {
+      id: "pt-4", dept: "pt", layout: "tip", active: true,
+      tag: "Fun Fact",
+      headline: "Muscles have memory — but not in the way you might think.",
+      body: "The phrase <strong>'muscle memory'</strong> is actually a bit of a misnomer. The memory lives in the brain and nervous system, not the muscle itself. Repeated movements build stronger neural pathways, which is why skills like riding a bike feel automatic even years later."
+    },
+    {
+      id: "ot-4", dept: "ot", layout: "split", active: true,
+      tag: "Did You Know?",
+      headline: "OT goes far beyond injury recovery.",
+      body: "Occupational therapy also supports people with <strong>stroke recovery, developmental delays, autism, chronic pain,</strong> and aging-related challenges — helping people of all ages live more independently."
     },
     {
       id: "sp-4", dept: "sp", layout: "split", active: true,
       tag: "By the Numbers",
       headline: "1 in 12 children has a speech or language disorder.",
       body: "Speech-language pathologists work with children and adults alike — helping kids develop communication skills and helping adults rebuild them after illness or injury."
-    },
-
-    // ── CARDIAC REHAB ─────────────────────────────────────────────
-    {
-      id: "cr-1", dept: "cr", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "30%", unit: "Risk reduction",
-      headline: "Cardiac rehab is one of the most effective treatments available.",
-      body: "Completing a cardiac rehab program can reduce the risk of future heart events by up to <strong>30%</strong> — and it's covered by most insurance plans."
-    },
-    {
-      id: "cr-2", dept: "cr", layout: "hero", active: true,
-      tag: "Fun Fact",
-      headline: "Your heart beats 100,000 times every single day.",
-      body: "Cardiac rehab helps make every one of those beats more efficient — improving your heart's strength, endurance, and resilience over time."
-    },
-    {
-      id: "cr-3", dept: "cr", layout: "tip", active: true,
-      tag: "What to Expect",
-      headline: "Cardiac rehab is about more than exercise.",
-      body: "A complete program includes <strong>supervised exercise, nutrition guidance, stress management,</strong> and medication education — giving your heart every advantage for a strong recovery."
-    },
-    {
-      id: "cr-4", dept: "cr", layout: "split", active: true,
-      tag: "Important",
-      headline: "Most eligible patients don't enroll — but they should.",
-      body: "Only about <strong>20–30%</strong> of eligible heart patients enroll in cardiac rehab, even though it is one of the most proven, effective treatments in cardiovascular medicine. Ask your care team if it's right for you."
-    },
-
-    // ── ORTHOPEDICS ───────────────────────────────────────────────
-    {
-      id: "or-1", dept: "or", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "4×", unit: "Pressure per pound lost",
-      headline: "Small weight changes make a big difference.",
-      body: "For every pound of body weight lost, approximately <strong>4 pounds of pressure</strong> is removed from your knees with each step. Small changes can mean significant relief."
-    },
-    {
-      id: "or-2", dept: "or", layout: "hero", active: true,
-      tag: "Good to Know",
-      headline: "Most orthopedic problems don't require surgery.",
-      body: "Physical therapy, targeted injections, and lifestyle changes resolve the majority of orthopedic cases. Your care team always explores every non-surgical option first."
-    },
-    {
-      id: "or-3", dept: "or", layout: "tip", active: true,
-      tag: "Science Fact",
-      headline: "Bone is alive — and always rebuilding.",
-      body: "Bone is <strong>living tissue</strong> that constantly remodels itself throughout your life. That's why the right activity, nutrition, and treatment can make a real difference at any age."
-    },
-    {
-      id: "or-4", dept: "or", layout: "split", active: true,
-      tag: "Did You Know?",
-      headline: "Cartilage has no blood supply.",
-      body: "Unlike muscle, <strong>cartilage receives no direct blood supply</strong> — which is why joint injuries tend to heal more slowly. Your orthopedic team understands this biology and plans treatment accordingly."
     },
 
     // ── STAFF SPOTLIGHTS — add yours here ─────────────────────────
@@ -344,12 +374,13 @@ function init() {
 }
 
 function showSlide(index) {
-  document.querySelectorAll('.slide').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.slide')[index].classList.add('active');
+  const allEls = document.querySelectorAll('.slide');
+  allEls.forEach(el => el.classList.remove('active'));
+  allEls[index].classList.add('active');
   current = index;
   animateProgress();
   clearTimeout(timer);
-  timer = setTimeout(() => showSlide((current + 1) % slides.length), rotationMs);
+  timer = setTimeout(() => showSlide((current + 1) % allEls.length), rotationMs);
 }
 
 function animateProgress() {
@@ -360,6 +391,112 @@ function animateProgress() {
     bar.style.transition = `width ${rotationMs}ms linear`;
     bar.style.width = '100%';
   }));
+}
+
+// ── Weather helpers ────────────────────────────────────────────────────────
+
+// Colby, KS coordinates
+const WEATHER_LAT = 39.3953;
+const WEATHER_LON = -101.0521;
+
+const WMO_ICON = {
+  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
+  45:'🌫️', 48:'🌫️',
+  51:'🌦️', 53:'🌦️', 55:'🌧️',
+  61:'🌧️', 63:'🌧️', 65:'🌧️',
+  71:'🌨️', 73:'🌨️', 75:'❄️',
+  80:'🌦️', 81:'🌧️', 82:'⛈️',
+  95:'⛈️', 96:'⛈️', 99:'⛈️',
+};
+const WMO_DESC = {
+  0:'Clear skies', 1:'Mostly clear', 2:'Partly cloudy', 3:'Overcast',
+  45:'Foggy', 48:'Freezing fog',
+  51:'Light drizzle', 53:'Drizzle', 55:'Heavy drizzle',
+  61:'Light rain', 63:'Rain', 65:'Heavy rain',
+  71:'Light snow', 73:'Snow', 75:'Heavy snow',
+  80:'Showers', 81:'Heavy showers', 82:'Violent showers',
+  95:'Thunderstorm', 96:'Thunderstorm w/ hail', 99:'Heavy thunderstorm',
+};
+const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+
+async function fetchWeather() {
+  try {
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}`
+      + `&current=temperature_2m,weathercode`
+      + `&daily=weathercode,temperature_2m_max,temperature_2m_min`
+      + `&temperature_unit=fahrenheit&wind_speed_unit=mph&forecast_days=4&timezone=America%2FChicago`;
+    const res  = await fetch(url);
+    const data = await res.json();
+    return data;
+  } catch(e) {
+    return null;
+  }
+}
+
+function buildWeatherSlide(data) {
+  const el = document.createElement('div');
+  el.className = 'slide layout-weather';
+  if (!data) {
+    el.innerHTML = `
+      <div class="weather-left"><div class="weather-icon">☁️</div>
+        <div class="weather-desc">Weather unavailable</div>
+        <div class="weather-location">Colby, KS</div>
+      </div>
+      <div class="weather-right"><div class="weather-label">Check back soon</div></div>`;
+    return el;
+  }
+
+  const cur     = data.current;
+  const daily   = data.daily;
+  const temp    = Math.round(cur.temperature_2m);
+  const code    = cur.weathercode;
+  const icon    = WMO_ICON[code] || '🌡️';
+  const desc    = WMO_DESC[code] || 'Current conditions';
+  const hi0     = Math.round(daily.temperature_2m_max[0]);
+  const lo0     = Math.round(daily.temperature_2m_min[0]);
+
+  // Next 3 days (indices 1, 2, 3)
+  const forecast = [1,2,3].map(i => {
+    const d = new Date(daily.time[i] + 'T12:00:00');
+    return {
+      day:  DAYS[d.getDay()],
+      icon: WMO_ICON[daily.weathercode[i]] || '🌡️',
+      hi:   Math.round(daily.temperature_2m_max[i]),
+      lo:   Math.round(daily.temperature_2m_min[i]),
+    };
+  });
+
+  el.innerHTML = `
+    <div class="weather-left">
+      <div class="weather-icon">${icon}</div>
+      <div class="weather-temp">${temp}<sup>°F</sup></div>
+      <div class="weather-desc">${desc}</div>
+      <div class="weather-location">Colby, KS</div>
+    </div>
+    <div class="weather-right">
+      <div class="weather-today">
+        <div class="weather-label">Today</div>
+        <div class="weather-hilo">
+          <span class="hi">High ${hi0}°</span>
+          &nbsp;·&nbsp;
+          <span class="lo">Low ${lo0}°</span>
+        </div>
+      </div>
+      <div class="weather-label">3-Day Forecast</div>
+      <div class="forecast-row">
+        ${forecast.map(f => `
+          <div class="forecast-day">
+            <div class="fc-name">${f.day}</div>
+            <div class="fc-icon">${f.icon}</div>
+            <div class="fc-temps">
+              <span class="hi">${f.hi}°</span>
+              <span style="opacity:0.4"> / </span>
+              <span class="lo">${f.lo}°</span>
+            </div>
+          </div>`).join('')}
+      </div>
+    </div>`;
+  return el;
 }
 
 function buildSlide(s) {
@@ -447,6 +584,27 @@ function buildSpotlight(s, d) {
       ${yearsLine}
       <div class="dept-name" style="color:${d.color}">${d.name}</div>
     </div>`;
+}
+
+async function init() {
+  const container = document.getElementById('slideshow');
+
+  // Fetch live weather (Colby, KS)
+  const weatherData = await fetchWeather();
+
+  // Build all slides, inserting a weather slide every 5 content slides
+  let allSlides = [];
+  slides.forEach((s, i) => {
+    allSlides.push(buildSlide(s));
+    if ((i + 1) % 5 === 0) {
+      allSlides.push(buildWeatherSlide(weatherData));
+    }
+  });
+  // Always ensure at least one weather slide
+  if (slides.length < 5) allSlides.push(buildWeatherSlide(weatherData));
+
+  allSlides.forEach(el => container.appendChild(el));
+  showSlide(0);
 }
 
 init();
