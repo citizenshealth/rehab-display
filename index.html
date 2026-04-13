@@ -19,145 +19,63 @@
   }
 
   html, body { width:100%; height:100%; background:#000; overflow:hidden; font-family:'DM Sans',sans-serif; }
-
   #slideshow { width:100vw; height:100vh; position:relative; }
-
-  .slide {
-    position:absolute; inset:0; width:100%; height:100%;
-    display:flex; opacity:0; transition:opacity 0.8s ease; pointer-events:none;
-  }
+  .slide { position:absolute; inset:0; width:100%; height:100%; display:flex; opacity:0; transition:opacity 0.8s ease; pointer-events:none; }
   .slide.active { opacity:1; pointer-events:auto; }
+  .dot-bg { position:absolute; inset:0; pointer-events:none; background-image:radial-gradient(circle, rgba(255,255,255,0.15) 1.5px, transparent 1.5px); background-size:28px 28px; }
+  #progress-bar { position:fixed; bottom:0; left:0; height:4px; background:rgba(255,255,255,0.45); z-index:100; transition:width linear; }
 
-  .dot-bg {
-    position:absolute; inset:0; pointer-events:none;
-    background-image:radial-gradient(circle, rgba(255,255,255,0.15) 1.5px, transparent 1.5px);
-    background-size:28px 28px;
-  }
-
-  #progress-bar {
-    position:fixed; bottom:0; left:0; height:4px;
-    background:rgba(255,255,255,0.45); z-index:100; transition:width linear;
-  }
-
-  .slide-tag {
-    display:inline-block; padding:6px 16px; border-radius:30px;
-    font-size:clamp(12px,1.1vw,16px); font-weight:600;
-    letter-spacing:1.8px; text-transform:uppercase; margin-bottom:20px;
-  }
-  .slide-headline {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(28px,4.2vw,64px); line-height:1.15;
-    letter-spacing:-0.5px; margin-bottom:18px;
-  }
+  /* Shared type */
+  .slide-tag { display:inline-block; padding:6px 16px; border-radius:30px; font-size:clamp(12px,1.1vw,16px); font-weight:600; letter-spacing:1.8px; text-transform:uppercase; margin-bottom:20px; }
+  .slide-headline { font-family:'DM Serif Display',serif; font-size:clamp(28px,4.2vw,64px); line-height:1.15; letter-spacing:-0.5px; margin-bottom:18px; }
   .slide-body { font-size:clamp(16px,1.9vw,28px); line-height:1.55; font-weight:300; }
   .slide-body strong { font-weight:600; }
-  .dept-name {
-    display:flex; align-items:center; gap:10px; margin-top:28px;
-    font-size:clamp(11px,1vw,15px); font-weight:600;
-    letter-spacing:2px; text-transform:uppercase; opacity:0.6;
-  }
-  .dept-name::before {
-    content:''; display:block; width:32px; height:2px;
-    border-radius:2px; background:currentColor; opacity:0.5;
-  }
+  .dept-name { display:flex; align-items:center; gap:10px; margin-top:28px; font-size:clamp(11px,1vw,15px); font-weight:600; letter-spacing:2px; text-transform:uppercase; opacity:0.6; }
+  .dept-name::before { content:''; display:block; width:32px; height:2px; border-radius:2px; background:currentColor; opacity:0.5; }
 
   /* STAT */
-  .layout-stat .stat-panel {
-    width:38%; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; padding:6%; position:relative;
-  }
-  .layout-stat .stat-num {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(56px,9vw,120px); line-height:1; letter-spacing:-3px; color:#fff;
-  }
-  .layout-stat .stat-unit {
-    font-size:clamp(14px,1.6vw,22px); font-weight:500;
-    letter-spacing:2px; text-transform:uppercase; opacity:0.75; margin-top:8px; color:#fff; text-align:center;
-  }
-  .layout-stat .text-panel {
-    flex:1; display:flex; flex-direction:column; justify-content:center;
-    padding:6% 7% 6% 5%; background:#fff; color:#1A1A1A;
-  }
+  .layout-stat { flex-direction:row; }
+  .layout-stat .stat-panel { width:38%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:6%; position:relative; }
+  .layout-stat .stat-num { font-family:'DM Serif Display',serif; font-size:clamp(56px,9vw,120px); line-height:1; letter-spacing:-3px; color:#fff; }
+  .layout-stat .stat-unit { font-size:clamp(14px,1.6vw,22px); font-weight:500; letter-spacing:2px; text-transform:uppercase; opacity:0.75; margin-top:8px; color:#fff; text-align:center; }
+  .layout-stat .text-panel { flex:1; display:flex; flex-direction:column; justify-content:center; padding:6% 7% 6% 5%; background:#fff; color:#1A1A1A; }
   .layout-stat .text-panel .slide-body { color:#3D4452; }
 
   /* HERO */
   .layout-hero { align-items:stretch; }
-  .layout-hero .hero-inner {
-    flex:1; display:flex; flex-direction:column; justify-content:center;
-    padding:9% 11%; position:relative; color:#fff;
-  }
+  .layout-hero .hero-inner { flex:1; display:flex; flex-direction:column; justify-content:center; padding:9% 11%; position:relative; color:#fff; }
   .layout-hero .slide-body { color:rgba(255,255,255,0.85); max-width:72%; }
   .layout-hero .slide-headline { max-width:78%; }
   .layout-hero .slide-tag { background:rgba(255,255,255,0.18); color:#fff; }
   .layout-hero .dept-name { color:rgba(255,255,255,0.55); }
 
   /* TIP */
+  .layout-tip { flex-direction:row; }
   .layout-tip .tip-bar { width:8px; flex-shrink:0; }
-  .layout-tip .tip-content {
-    flex:1; display:flex; flex-direction:column; justify-content:center; padding:7% 9%;
-  }
+  .layout-tip .tip-content { flex:1; display:flex; flex-direction:column; justify-content:center; padding:7% 9%; }
   .layout-tip .slide-body { color:#3D4452; }
 
   /* SPLIT */
-  .layout-split .split-left {
-    width:46%; display:flex; flex-direction:column;
-    justify-content:center; padding:7%; color:#fff; position:relative;
-  }
-  .layout-split .split-right {
-    flex:1; background:#fff; display:flex; flex-direction:column;
-    justify-content:center; padding:7%; color:#1A1A1A;
-  }
+  .layout-split { flex-direction:row; }
+  .layout-split .split-left { width:46%; display:flex; flex-direction:column; justify-content:center; padding:7%; color:#fff; position:relative; }
+  .layout-split .split-right { flex:1; background:#fff; display:flex; flex-direction:column; justify-content:center; padding:7%; color:#1A1A1A; }
   .layout-split .split-right .slide-body { color:#3D4452; }
 
   /* SPOTLIGHT */
-  .layout-spotlight .photo-panel {
-    width:38%; display:flex; flex-direction:column;
-    align-items:center; justify-content:center; padding:6%; position:relative; color:#fff;
-  }
-  .layout-spotlight .staff-photo {
-    width:clamp(100px,13vw,180px); height:clamp(100px,13vw,180px);
-    border-radius:50%; object-fit:cover; border:4px solid rgba(255,255,255,0.4);
-    margin-bottom:20px; background:rgba(255,255,255,0.15);
-    display:flex; align-items:center; justify-content:center;
-    font-size:clamp(36px,5vw,64px); font-family:'DM Serif Display',serif; color:#fff;
-  }
-  .layout-spotlight .staff-name {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(20px,2.4vw,34px); color:#fff; text-align:center; line-height:1.2;
-  }
-  .layout-spotlight .staff-title {
-    font-size:clamp(12px,1.1vw,16px); color:rgba(255,255,255,0.75);
-    text-align:center; margin-top:6px; font-weight:400;
-  }
-  .layout-spotlight .bio-panel {
-    flex:1; background:#fff; display:flex; flex-direction:column;
-    justify-content:center; padding:6% 7%; color:#1A1A1A;
-  }
-  .layout-spotlight .fun-fact-label {
-    font-size:clamp(11px,1vw,14px); font-weight:600; letter-spacing:1.5px;
-    text-transform:uppercase; margin-bottom:8px; opacity:0.5; margin-top:20px;
-  }
-  .layout-spotlight .fun-fact {
-    font-size:clamp(15px,1.7vw,24px); line-height:1.5; font-weight:300; color:#3D4452;
-  }
-  .layout-spotlight .years-badge {
-    display:inline-flex; align-items:center; gap:8px; margin-top:18px;
-    font-size:clamp(12px,1vw,15px); font-weight:500; opacity:0.55;
-  }
+  .layout-spotlight .photo-panel { width:38%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:6%; position:relative; color:#fff; }
+  .layout-spotlight .staff-photo { width:clamp(100px,13vw,180px); height:clamp(100px,13vw,180px); border-radius:50%; object-fit:cover; border:4px solid rgba(255,255,255,0.4); margin-bottom:20px; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:clamp(36px,5vw,64px); font-family:'DM Serif Display',serif; color:#fff; }
+  .layout-spotlight .staff-name { font-family:'DM Serif Display',serif; font-size:clamp(20px,2.4vw,34px); color:#fff; text-align:center; line-height:1.2; }
+  .layout-spotlight .staff-title { font-size:clamp(12px,1.1vw,16px); color:rgba(255,255,255,0.75); text-align:center; margin-top:6px; font-weight:400; }
+  .layout-spotlight .bio-panel { flex:1; background:#fff; display:flex; flex-direction:column; justify-content:center; padding:6% 7%; color:#1A1A1A; }
+  .layout-spotlight .fun-fact-label { font-size:clamp(11px,1vw,14px); font-weight:600; letter-spacing:1.5px; text-transform:uppercase; margin-bottom:8px; opacity:0.5; margin-top:20px; }
+  .layout-spotlight .fun-fact { font-size:clamp(15px,1.7vw,24px); line-height:1.5; font-weight:300; color:#3D4452; }
+  .layout-spotlight .years-badge { display:inline-flex; align-items:center; gap:8px; margin-top:18px; font-size:clamp(12px,1vw,15px); font-weight:500; opacity:0.55; }
 
   /* WEATHER */
   .layout-weather { background:#0a1628; align-items:stretch; flex-direction:row; }
-  .weather-left {
-    width:42%; display:flex; flex-direction:column;
-    align-items:center; justify-content:center;
-    padding:6%; position:relative;
-    border-right:1px solid rgba(255,255,255,0.08);
-  }
+  .weather-left { width:42%; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:6%; position:relative; border-right:1px solid rgba(255,255,255,0.08); }
   .weather-icon { font-size:clamp(56px,10vw,120px); line-height:1; margin-bottom:16px; }
-  .weather-temp {
-    font-family:'DM Serif Display',serif;
-    font-size:clamp(52px,9vw,110px); line-height:1; color:#fff; letter-spacing:-3px;
-  }
+  .weather-temp { font-family:'DM Serif Display',serif; font-size:clamp(52px,9vw,110px); line-height:1; color:#fff; letter-spacing:-3px; }
   .weather-temp sup { font-size:0.4em; vertical-align:super; letter-spacing:0; opacity:0.7; }
   .weather-desc { font-size:clamp(14px,1.8vw,24px); color:rgba(255,255,255,0.7); margin-top:8px; font-weight:300; text-align:center; }
   .weather-location { font-size:clamp(11px,1vw,14px); color:rgba(255,255,255,0.4); letter-spacing:2px; text-transform:uppercase; margin-top:10px; font-weight:500; }
@@ -170,7 +88,7 @@
   .forecast-row { display:flex; gap:0; margin-top:4px; }
   .forecast-day { flex:1; display:flex; flex-direction:column; align-items:center; padding:14px 8px; border-radius:10px; background:rgba(255,255,255,0.05); margin:0 5px; }
   .forecast-day:first-child { margin-left:0; }
-  .forecast-day:last-child  { margin-right:0; }
+  .forecast-day:last-child { margin-right:0; }
   .fc-name { font-size:clamp(10px,1vw,13px); font-weight:600; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-bottom:8px; }
   .fc-icon { font-size:clamp(20px,3vw,36px); margin-bottom:8px; }
   .fc-temps { font-size:clamp(12px,1.3vw,18px); color:#fff; font-weight:300; }
@@ -179,30 +97,23 @@
 </style>
 </head>
 <body>
-
 <div id="slideshow"></div>
 <div id="progress-bar"></div>
-
 <script>
 
 // =====================================================================
 //  SLIDE CONTENT
-//  This is the only section you need to edit to update the display.
-//
 //  LAYOUTS:  "stat" | "hero" | "tip" | "split" | "spotlight"
 //  DEPTS:    "pt"   | "ot"   | "sp"  | "cr"    | "or"
-//
 //  Set  active: false  to hide a slide without deleting it.
 //  Change  rotation_seconds  to control how long each slide shows.
 // =====================================================================
 
 const CONTENT = {
-  settings: {
-    rotation_seconds: 8
-  },
+  settings: { rotation_seconds: 10 },
   slides: [
 
-    // ── ROUND 1 ───────────────────────────────────────────────────
+    // ── PHYSICAL THERAPY ──────────────────────────────────────────
     {
       id: "pt-1", dept: "pt", layout: "stat", active: true,
       tag: "Did You Know?",
@@ -211,116 +122,55 @@ const CONTENT = {
       body: "You have over <strong>600 muscles</strong> in your body. Physical therapy helps retrain the ones that forget how to work together after injury, surgery, or long periods of inactivity."
     },
     {
-      id: "ot-1", dept: "ot", layout: "hero", active: true,
+      id: "pt-2", dept: "pt", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "The average person takes between 3,000 and 9,000 steps a day.",
+      body: "Studies tracking real-world movement found enormous variation — from sedentary adults under 3,000 steps to highly active people over 10,000. The most active? Postal workers and farmers, who routinely top 15,000."
+    },
+    {
+      id: "pt-3", dept: "pt", layout: "tip", active: true,
+      tag: "Fun Fact",
+      headline: "Muscles have memory — but not in the way you might think.",
+      body: "The phrase <strong>\'muscle memory\'</strong> is actually a bit of a misnomer. The memory lives in the brain and nervous system, not the muscle itself. Repeated movements build stronger neural pathways, which is why skills like riding a bike feel automatic even years later."
+    },
+    {
+      id: "pt-4", dept: "pt", layout: "split", active: true,
+      tag: "History",
+      headline: "PT has been healing people since WWI.",
+      body: "Physical therapy was first widely used to rehabilitate soldiers returning from World War I — and it has been growing ever since. Today, PTs work in hospitals, schools, sports facilities, and homes around the world."
+    },
+    {
+      id: "pt-5", dept: "pt", layout: "hero", active: true,
+      tag: "Science Fact",
+      headline: "Skeletal muscle is one of the few tissues that can repair itself.",
+      body: "Most muscle fibers cannot divide, but muscle tissue contains specialized stem cells called <strong>satellite cells</strong> that activate after injury. They fuse with damaged fibers and help rebuild them — one reason muscles can recover from strains and tears."
+    },
+    {
+      id: "pt-6", dept: "pt", layout: "tip", active: true,
+      tag: "Did You Know?",
+      headline: "The Achilles tendon is the strongest tendon in the body.",
+      body: "The Achilles tendon connects the calf muscles to the heel bone and can withstand forces of over <strong>1,000 pounds</strong> during running. Despite its strength, it is one of the most commonly injured tendons — partly because it handles such enormous repetitive loads."
+    },
+
+    // ── OCCUPATIONAL THERAPY ──────────────────────────────────────
+    {
+      id: "ot-1", dept: "ot", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "27", unit: "Bones in your hand",
+      headline: "Your hand is an engineering marvel.",
+      body: "Each hand contains <strong>27 bones, 29 joints,</strong> and over 30 muscles. Occupational therapy specializes in helping all of them work together for the everyday activities that matter most."
+    },
+    {
+      id: "ot-2", dept: "ot", layout: "hero", active: true,
       tag: "What Is OT?",
       headline: "OT helps you get back to the things that matter most.",
       body: "Cooking. Driving. Getting dressed. Playing with grandchildren. Occupational therapy is about returning to the activities that make your life yours."
     },
     {
-      id: "sp-1", dept: "sp", layout: "tip", active: true,
-      tag: "Science Fact",
-      headline: "The brain can rewire itself.",
-      body: "Scientists once believed the brain was fixed after childhood. We now know it remains capable of forming new connections throughout life — a property called <strong>neuroplasticity</strong>. It's one of the most remarkable discoveries in modern neuroscience."
-    },
-    {
-      id: "cr-1", dept: "cr", layout: "split", active: true,
-      tag: "Did You Know?",
-      headline: "Cardiac rehab has roots going back to the 1950s.",
-      body: "Before the 1950s, doctors prescribed bed rest for weeks after a heart attack. Researchers eventually discovered that carefully supervised movement led to better outcomes — and cardiac rehabilitation was born."
-    },
-    {
-      id: "or-1", dept: "or", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "206", unit: "Bones in the body",
-      headline: "You're born with nearly 300 bones.",
-      body: "Babies are born with around <strong>270–300 bones</strong>, many of which gradually fuse together. By adulthood, the human skeleton settles at <strong>206 bones</strong> — a process that isn't complete until your mid-20s."
-    },
-
-    // ── ROUND 2 ───────────────────────────────────────────────────
-    {
-      id: "ot-2", dept: "ot", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "27", unit: "Bones in your hand",
-      headline: "Your hand is an engineering marvel.",
-      body: "Each hand contains <strong>27 bones, 29 joints,</strong> and over 30 muscles. Occupational therapy specializes in helping all of them work together for everyday tasks."
-    },
-    {
-      id: "sp-2", dept: "sp", layout: "hero", active: true,
-      tag: "What Is Speech Therapy?",
-      headline: "Speech therapy is about much more than how you speak.",
-      body: "Speech-language pathologists also treat <strong>swallowing difficulties, memory challenges, voice disorders,</strong> and communication after stroke or brain injury."
-    },
-    {
-      id: "cr-2", dept: "cr", layout: "tip", active: true,
-      tag: "What to Expect",
-      headline: "Cardiac rehab is about more than exercise.",
-      body: "A complete program includes <strong>supervised exercise, nutrition guidance, stress management,</strong> and medication education — giving your heart every advantage for a strong recovery."
-    },
-    {
-      id: "or-2", dept: "or", layout: "split", active: true,
-      tag: "Did You Know?",
-      headline: "The knee is the largest joint in the human body.",
-      body: "It's also one of the most complex — held together by <strong>four major ligaments, two menisci, and over a dozen tendons</strong>. Despite its complexity, the knee is essentially a hinge that handles forces several times your body weight with every step."
-    },
-    {
-      id: "pt-2", dept: "pt", layout: "hero", active: true,
-      tag: "Fun Fact",
-      headline: "The average person takes between 3,000 and 9,000 steps a day.",
-      body: "Studies tracking real-world movement found enormous variation — from sedentary adults under 3,000 steps to highly active people well over 10,000. The most active? Postal workers and farmers, who routinely top 15,000."
-    },
-
-    // ── ROUND 3 ───────────────────────────────────────────────────
-    {
-      id: "sp-3", dept: "sp", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "100+", unit: "Phonetic sounds",
-      headline: "The human voice is extraordinary.",
-      body: "The human voice can produce over <strong>100 different phonetic sounds</strong> across all the world's languages — and speech-language pathologists are experts in how all of them work."
-    },
-    {
-      id: "cr-3", dept: "cr", layout: "hero", active: true,
-      tag: "Fun Fact",
-      headline: "Your heart beats about 100,000 times every single day.",
-      body: "That's roughly <strong>35 million beats a year</strong> — and over 2.5 billion in an average lifetime. The heart is the hardest-working muscle in the body, and unlike most muscles, it never gets to fully rest."
-    },
-    {
-      id: "or-3", dept: "or", layout: "tip", active: true,
-      tag: "Science Fact",
-      headline: "Bone is alive — and always rebuilding.",
-      body: "Bone is <strong>living tissue</strong>, not the static structure most people imagine. Your skeleton completely replaces itself roughly every 10 years through a process called remodeling, where old bone is broken down and new bone is built in its place."
-    },
-    {
-      id: "pt-3", dept: "pt", layout: "split", active: true,
-      tag: "History",
-      headline: "PT has been healing people since WWI.",
-      body: "Physical therapy was first widely used to rehabilitate soldiers returning from World War I — and it has been growing ever since. Today, PTs work in hospitals, schools, sports facilities, and homes."
-    },
-    {
       id: "ot-3", dept: "ot", layout: "tip", active: true,
       tag: "Did You Know?",
       headline: "\"Occupation\" means more than work.",
-      body: "In occupational therapy, <strong>\"occupation\"</strong> refers to any activity that occupies a person's time and holds personal meaning — from brushing your teeth to playing chess to tending a garden. The field was built around the idea that meaningful activity is central to human health."
-    },
-
-    // ── ROUND 4 ───────────────────────────────────────────────────
-    {
-      id: "cr-4", dept: "cr", layout: "stat", active: true,
-      tag: "Did You Know?",
-      stat: "2.5B", unit: "Heartbeats in a lifetime",
-      headline: "The heart is the body's most tireless worker.",
-      body: "In a single hour, your heart pumps roughly <strong>70 gallons of blood</strong> through about 60,000 miles of blood vessels. Laid end to end, those vessels would circle the Earth more than twice."
-    },
-    {
-      id: "or-4", dept: "or", layout: "hero", active: true,
-      tag: "Did You Know?",
-      headline: "Cartilage has no blood supply of its own.",
-      body: "Unlike most tissues in the body, cartilage contains no blood vessels. It gets its nutrients through a process called <strong>diffusion</strong> from the surrounding joint fluid — which is part of why joint injuries tend to heal more slowly than muscle injuries."
-    },
-    {
-      id: "pt-4", dept: "pt", layout: "tip", active: true,
-      tag: "Fun Fact",
-      headline: "Muscles have memory — but not in the way you might think.",
-      body: "The phrase <strong>'muscle memory'</strong> is actually a bit of a misnomer. The memory lives in the brain and nervous system, not the muscle itself. Repeated movements build stronger neural pathways, which is why skills like riding a bike feel automatic even years later."
+      body: "In occupational therapy, <strong>\"occupation\"</strong> refers to any activity that occupies a person\'s time and holds personal meaning — from brushing your teeth to playing chess to tending a garden. The field was built around the idea that meaningful activity is central to human health."
     },
     {
       id: "ot-4", dept: "ot", layout: "split", active: true,
@@ -329,10 +179,133 @@ const CONTENT = {
       body: "Occupational therapy also supports people with <strong>stroke recovery, developmental delays, autism, chronic pain,</strong> and aging-related challenges — helping people of all ages live more independently."
     },
     {
+      id: "ot-5", dept: "ot", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "The human hand can detect textures as fine as 13 nanometers.",
+      body: "Research has shown that fingertips can feel surface features smaller than a single wavelength of visible light. This extraordinary sensitivity is made possible by specialized receptors called <strong>Meissner\'s corpuscles</strong>, concentrated heavily in the fingertips."
+    },
+    {
+      id: "ot-6", dept: "ot", layout: "split", active: true,
+      tag: "History",
+      headline: "Occupational therapy was formally established in 1917.",
+      body: "The National Society for the Promotion of Occupational Therapy — now the American Occupational Therapy Association — was founded in <strong>1917</strong>. The field grew rapidly during both World Wars as therapists helped veterans relearn daily living skills and return to productive lives."
+    },
+
+    // ── SPEECH THERAPY ────────────────────────────────────────────
+    {
+      id: "sp-1", dept: "sp", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "100+", unit: "Phonetic sounds",
+      headline: "The human voice is extraordinary.",
+      body: "The human voice can produce over <strong>100 different phonetic sounds</strong> across all the world\'s languages — and speech-language pathologists are experts in how all of them work."
+    },
+    {
+      id: "sp-2", dept: "sp", layout: "hero", active: true,
+      tag: "What Is Speech Therapy?",
+      headline: "Speech therapy is about much more than how you speak.",
+      body: "Speech-language pathologists also treat <strong>swallowing difficulties, memory challenges, voice disorders,</strong> and communication after stroke or brain injury."
+    },
+    {
+      id: "sp-3", dept: "sp", layout: "tip", active: true,
+      tag: "Science Fact",
+      headline: "The brain can rewire itself.",
+      body: "Scientists once believed the brain was fixed after childhood. We now know it remains capable of forming new connections throughout life — a property called <strong>neuroplasticity</strong>. It\'s one of the most remarkable discoveries in modern neuroscience."
+    },
+    {
       id: "sp-4", dept: "sp", layout: "split", active: true,
       tag: "By the Numbers",
       headline: "1 in 12 children has a speech or language disorder.",
       body: "Speech-language pathologists work with children and adults alike — helping kids develop communication skills and helping adults rebuild them after illness or injury."
+    },
+    {
+      id: "sp-5", dept: "sp", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "Humans are the only species capable of true speech.",
+      body: "While many animals communicate vocally, the human vocal tract is uniquely shaped to produce the enormous range of sounds that make spoken language possible. The descended larynx — a feature unique to humans — is key to this ability, though it also means we are the only mammals that can choke on food."
+    },
+    {
+      id: "sp-6", dept: "sp", layout: "tip", active: true,
+      tag: "Did You Know?",
+      headline: "Swallowing is one of the most complex muscle movements the body makes.",
+      body: "A single swallow involves the <strong>coordinated action of over 30 muscles</strong> in the mouth, throat, and esophagus — all happening in under two seconds. Speech-language pathologists who specialize in swallowing disorders help patients relearn this intricate sequence."
+    },
+
+    // ── CARDIAC REHAB ─────────────────────────────────────────────
+    {
+      id: "cr-1", dept: "cr", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "2.5B", unit: "Heartbeats in a lifetime",
+      headline: "The heart is the body\'s most tireless worker.",
+      body: "In a single hour, your heart pumps roughly <strong>70 gallons of blood</strong> through about 60,000 miles of blood vessels. Laid end to end, those vessels would circle the Earth more than twice."
+    },
+    {
+      id: "cr-2", dept: "cr", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "Your heart beats about 100,000 times every single day.",
+      body: "That\'s roughly <strong>35 million beats a year</strong> — and over 2.5 billion in an average lifetime. The heart is the hardest-working muscle in the body, and unlike most muscles, it never gets to fully rest."
+    },
+    {
+      id: "cr-3", dept: "cr", layout: "tip", active: true,
+      tag: "What to Expect",
+      headline: "Cardiac rehab is about more than exercise.",
+      body: "A complete program includes <strong>supervised exercise, nutrition guidance, stress management,</strong> and medication education — a comprehensive approach to supporting the heart after a cardiac event."
+    },
+    {
+      id: "cr-4", dept: "cr", layout: "split", active: true,
+      tag: "Did You Know?",
+      headline: "Cardiac rehab has roots going back to the 1950s.",
+      body: "Before the 1950s, doctors prescribed bed rest for weeks after a heart attack. Researchers eventually discovered that carefully supervised movement led to better outcomes — and cardiac rehabilitation was born from that insight."
+    },
+    {
+      id: "cr-5", dept: "cr", layout: "hero", active: true,
+      tag: "Science Fact",
+      headline: "The heart has its own electrical system.",
+      body: "Unlike any other muscle in the body, the heart generates its own electrical impulses through a built-in pacemaker called the <strong>sinoatrial node</strong>. This is why a heart can keep beating even when removed from the body — as long as it receives oxygen."
+    },
+    {
+      id: "cr-6", dept: "cr", layout: "tip", active: true,
+      tag: "Fun Fact",
+      headline: "The heart begins beating before the brain exists.",
+      body: "In a developing embryo, the primitive heart starts beating around <strong>3 weeks</strong> after conception — weeks before the brain or nervous system have formed. It is the first functional organ in the human body."
+    },
+
+    // ── ORTHOPEDICS ───────────────────────────────────────────────
+    {
+      id: "or-1", dept: "or", layout: "stat", active: true,
+      tag: "Did You Know?",
+      stat: "206", unit: "Bones in the adult body",
+      headline: "You\'re born with nearly 300 bones.",
+      body: "Babies are born with around <strong>270–300 bones</strong>, many of which gradually fuse together. By adulthood the skeleton settles at <strong>206 bones</strong> — a process that isn\'t fully complete until the mid-20s."
+    },
+    {
+      id: "or-2", dept: "or", layout: "hero", active: true,
+      tag: "Did You Know?",
+      headline: "The knee is the largest and most complex joint in the body.",
+      body: "It is held together by <strong>four major ligaments, two menisci, and over a dozen tendons</strong>, yet it is essentially a hinge designed to handle forces several times your body weight with every step."
+    },
+    {
+      id: "or-3", dept: "or", layout: "tip", active: true,
+      tag: "Science Fact",
+      headline: "Bone is alive — and always rebuilding.",
+      body: "Bone is <strong>living tissue</strong>, not the static structure most people imagine. Your skeleton completely replaces itself roughly every 10 years through a process called remodeling, where old bone is broken down and new bone is built in its place."
+    },
+    {
+      id: "or-4", dept: "or", layout: "split", active: true,
+      tag: "Did You Know?",
+      headline: "Cartilage has no blood supply.",
+      body: "Unlike most tissues in the body, cartilage contains no blood vessels. It gets its nutrients through a process called <strong>diffusion</strong> from the surrounding joint fluid — which is part of why joint injuries tend to heal more slowly than muscle injuries."
+    },
+    {
+      id: "or-5", dept: "or", layout: "hero", active: true,
+      tag: "Fun Fact",
+      headline: "The femur is the longest and strongest bone in the body.",
+      body: "The thigh bone — or femur — makes up roughly a quarter of a person\'s total height and is strong enough to withstand forces of <strong>up to 30 times body weight</strong> during activities like running and jumping. It is also the most common site for bone fractures in older adults."
+    },
+    {
+      id: "or-6", dept: "or", layout: "tip", active: true,
+      tag: "Did You Know?",
+      headline: "You are slightly taller in the morning than at night.",
+      body: "The <strong>intervertebral discs</strong> between your vertebrae act like sponges, absorbing fluid during rest and compressing under the weight of gravity throughout the day. Most people are about half an inch taller when they first wake up than when they go to bed."
     },
 
     // ── STAFF SPOTLIGHTS — add yours here ─────────────────────────
@@ -352,9 +325,8 @@ const CONTENT = {
 };
 
 // =====================================================================
-//  DISPLAY ENGINE — no need to edit below this line
+//  DEPARTMENT DEFINITIONS
 // =====================================================================
-
 const DEPT = {
   pt: { name: 'Physical Therapy',     color: '#1B6B4A', light: '#E6F4EE' },
   ot: { name: 'Occupational Therapy', color: '#1A4F8A', light: '#E6EFF8' },
@@ -363,109 +335,38 @@ const DEPT = {
   or: { name: 'Orthopedics',          color: '#7A5C1E', light: '#F5F0E6' },
 };
 
-let current = 0, timer = null;
-const rotationMs = (CONTENT.settings.rotation_seconds || 8) * 1000;
-const slides = CONTENT.slides.filter(s => s.active !== false);
-
-function init() {
-  const container = document.getElementById('slideshow');
-  slides.forEach(s => container.appendChild(buildSlide(s)));
-  showSlide(0);
-}
-
-function showSlide(index) {
-  const allEls = document.querySelectorAll('.slide');
-  allEls.forEach(el => el.classList.remove('active'));
-  allEls[index].classList.add('active');
-  current = index;
-  animateProgress();
-  clearTimeout(timer);
-  timer = setTimeout(() => showSlide((current + 1) % allEls.length), rotationMs);
-}
-
-function animateProgress() {
-  const bar = document.getElementById('progress-bar');
-  bar.style.transition = 'none';
-  bar.style.width = '0%';
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    bar.style.transition = `width ${rotationMs}ms linear`;
-    bar.style.width = '100%';
-  }));
-}
-
-// ── Weather helpers ────────────────────────────────────────────────────────
-
-// Colby, KS coordinates
+// =====================================================================
+//  WEATHER
+// =====================================================================
 const WEATHER_LAT = 39.3953;
 const WEATHER_LON = -101.0521;
-
-const WMO_ICON = {
-  0:'☀️', 1:'🌤️', 2:'⛅', 3:'☁️',
-  45:'🌫️', 48:'🌫️',
-  51:'🌦️', 53:'🌦️', 55:'🌧️',
-  61:'🌧️', 63:'🌧️', 65:'🌧️',
-  71:'🌨️', 73:'🌨️', 75:'❄️',
-  80:'🌦️', 81:'🌧️', 82:'⛈️',
-  95:'⛈️', 96:'⛈️', 99:'⛈️',
-};
-const WMO_DESC = {
-  0:'Clear skies', 1:'Mostly clear', 2:'Partly cloudy', 3:'Overcast',
-  45:'Foggy', 48:'Freezing fog',
-  51:'Light drizzle', 53:'Drizzle', 55:'Heavy drizzle',
-  61:'Light rain', 63:'Rain', 65:'Heavy rain',
-  71:'Light snow', 73:'Snow', 75:'Heavy snow',
-  80:'Showers', 81:'Heavy showers', 82:'Violent showers',
-  95:'Thunderstorm', 96:'Thunderstorm w/ hail', 99:'Heavy thunderstorm',
-};
+const WMO_ICON = { 0:'☀️',1:'🌤️',2:'⛅',3:'☁️',45:'🌫️',48:'🌫️',51:'🌦️',53:'🌦️',55:'🌧️',61:'🌧️',63:'🌧️',65:'🌧️',71:'🌨️',73:'🌨️',75:'❄️',80:'🌦️',81:'🌧️',82:'⛈️',95:'⛈️',96:'⛈️',99:'⛈️' };
+const WMO_DESC = { 0:'Clear skies',1:'Mostly clear',2:'Partly cloudy',3:'Overcast',45:'Foggy',48:'Freezing fog',51:'Light drizzle',53:'Drizzle',55:'Heavy drizzle',61:'Light rain',63:'Rain',65:'Heavy rain',71:'Light snow',73:'Snow',75:'Heavy snow',80:'Showers',81:'Heavy showers',82:'Violent showers',95:'Thunderstorm',96:'Thunderstorm w/ hail',99:'Heavy thunderstorm' };
 const DAYS = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
 
 async function fetchWeather() {
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}`
-      + `&current=temperature_2m,weathercode`
-      + `&daily=weathercode,temperature_2m_max,temperature_2m_min`
-      + `&temperature_unit=fahrenheit&wind_speed_unit=mph&forecast_days=4&timezone=America%2FChicago`;
-    const res  = await fetch(url);
-    const data = await res.json();
-    return data;
-  } catch(e) {
-    return null;
-  }
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${WEATHER_LAT}&longitude=${WEATHER_LON}&current=temperature_2m,weathercode&daily=weathercode,temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&wind_speed_unit=mph&forecast_days=4&timezone=America%2FChicago`;
+    const res = await fetch(url);
+    return await res.json();
+  } catch(e) { return null; }
 }
 
 function buildWeatherSlide(data) {
   const el = document.createElement('div');
   el.className = 'slide layout-weather';
   if (!data) {
-    el.innerHTML = `
-      <div class="weather-left"><div class="weather-icon">☁️</div>
-        <div class="weather-desc">Weather unavailable</div>
-        <div class="weather-location">Colby, KS</div>
-      </div>
-      <div class="weather-right"><div class="weather-label">Check back soon</div></div>`;
+    el.innerHTML = `<div class="weather-left"><div class="weather-icon">☁️</div><div class="weather-desc">Weather unavailable</div><div class="weather-location">Colby, KS</div></div><div class="weather-right"><div class="weather-label">Check back soon</div></div>`;
     return el;
   }
-
-  const cur     = data.current;
-  const daily   = data.daily;
-  const temp    = Math.round(cur.temperature_2m);
-  const code    = cur.weathercode;
-  const icon    = WMO_ICON[code] || '🌡️';
-  const desc    = WMO_DESC[code] || 'Current conditions';
-  const hi0     = Math.round(daily.temperature_2m_max[0]);
-  const lo0     = Math.round(daily.temperature_2m_min[0]);
-
-  // Next 3 days (indices 1, 2, 3)
+  const cur = data.current, daily = data.daily;
+  const temp = Math.round(cur.temperature_2m), code = cur.weathercode;
+  const icon = WMO_ICON[code]||'🌡️', desc = WMO_DESC[code]||'Current conditions';
+  const hi0 = Math.round(daily.temperature_2m_max[0]), lo0 = Math.round(daily.temperature_2m_min[0]);
   const forecast = [1,2,3].map(i => {
-    const d = new Date(daily.time[i] + 'T12:00:00');
-    return {
-      day:  DAYS[d.getDay()],
-      icon: WMO_ICON[daily.weathercode[i]] || '🌡️',
-      hi:   Math.round(daily.temperature_2m_max[i]),
-      lo:   Math.round(daily.temperature_2m_min[i]),
-    };
+    const d = new Date(daily.time[i]+'T12:00:00');
+    return { day:DAYS[d.getDay()], icon:WMO_ICON[daily.weathercode[i]]||'🌡️', hi:Math.round(daily.temperature_2m_max[i]), lo:Math.round(daily.temperature_2m_min[i]) };
   });
-
   el.innerHTML = `
     <div class="weather-left">
       <div class="weather-icon">${icon}</div>
@@ -476,29 +377,19 @@ function buildWeatherSlide(data) {
     <div class="weather-right">
       <div class="weather-today">
         <div class="weather-label">Today</div>
-        <div class="weather-hilo">
-          <span class="hi">High ${hi0}°</span>
-          &nbsp;·&nbsp;
-          <span class="lo">Low ${lo0}°</span>
-        </div>
+        <div class="weather-hilo"><span class="hi">High ${hi0}°</span> &nbsp;·&nbsp; <span class="lo">Low ${lo0}°</span></div>
       </div>
       <div class="weather-label">3-Day Forecast</div>
       <div class="forecast-row">
-        ${forecast.map(f => `
-          <div class="forecast-day">
-            <div class="fc-name">${f.day}</div>
-            <div class="fc-icon">${f.icon}</div>
-            <div class="fc-temps">
-              <span class="hi">${f.hi}°</span>
-              <span style="opacity:0.4"> / </span>
-              <span class="lo">${f.lo}°</span>
-            </div>
-          </div>`).join('')}
+        ${forecast.map(f=>`<div class="forecast-day"><div class="fc-name">${f.day}</div><div class="fc-icon">${f.icon}</div><div class="fc-temps"><span class="hi">${f.hi}°</span><span style="opacity:0.4"> / </span><span class="lo">${f.lo}°</span></div></div>`).join('')}
       </div>
     </div>`;
   return el;
 }
 
+// =====================================================================
+//  SLIDE BUILDERS
+// =====================================================================
 function buildSlide(s) {
   const d = DEPT[s.dept] || { name: s.dept, color: '#444', light: '#eee' };
   const el = document.createElement('div');
@@ -562,47 +453,88 @@ function buildSplit(s, d) {
 }
 
 function buildSpotlight(s, d) {
-  const initials = (s.name || '?').split(' ').map(w => w[0]).join('').slice(0,2).toUpperCase();
-  const photoEl = s.photo
-    ? `<img class="staff-photo" src="${s.photo}" alt="${s.name}">`
-    : `<div class="staff-photo">${initials}</div>`;
-  const yearsLine = s.years
-    ? `<div class="years-badge" style="color:${d.color}">&#9679; ${s.years} year${s.years == 1 ? '' : 's'} at Citizens Health</div>`
-    : '';
+  const initials = (s.name||'?').split(' ').map(w=>w[0]).join('').slice(0,2).toUpperCase();
+  const photoEl = s.photo ? `<img class="staff-photo" src="${s.photo}" alt="${s.name}">` : `<div class="staff-photo">${initials}</div>`;
+  const yearsLine = s.years ? `<div class="years-badge" style="color:${d.color}">&#9679; ${s.years} year${s.years==1?'':'s'} at Citizens Health</div>` : '';
   return `
     <div class="photo-panel" style="background:${d.color}">
       <div class="dot-bg"></div>
       ${photoEl}
-      <div class="staff-name">${s.name || ''}</div>
-      <div class="staff-title">${s.title || ''}</div>
+      <div class="staff-name">${s.name||''}</div>
+      <div class="staff-title">${s.title||''}</div>
     </div>
     <div class="bio-panel">
       <span class="slide-tag" style="background:${d.light};color:${d.color}">Meet the Team</span>
-      <div class="slide-headline" style="color:#1A1A1A;font-size:clamp(22px,3vw,44px)">${s.bio || ''}</div>
+      <div class="slide-headline" style="color:#1A1A1A;font-size:clamp(22px,3vw,44px)">${s.bio||''}</div>
       <div class="fun-fact-label" style="color:${d.color}">Fun fact</div>
-      <div class="fun-fact">${s.fun_fact || ''}</div>
+      <div class="fun-fact">${s.fun_fact||''}</div>
       ${yearsLine}
       <div class="dept-name" style="color:${d.color}">${d.name}</div>
     </div>`;
 }
 
+// =====================================================================
+//  ROTATION ENGINE
+// =====================================================================
+let current = 0, timer = null;
+const rotationMs = (CONTENT.settings.rotation_seconds || 10) * 1000;
+
+function shuffle(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function interleave(arr) {
+  shuffle(arr);
+  for (let pass = 0; pass < 3; pass++) {
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i].dept === arr[i-1].dept) {
+        for (let j = i + 1; j < arr.length; j++) {
+          if (arr[j].dept !== arr[i-1].dept && (i === arr.length-1 || arr[j].dept !== arr[i+1].dept)) {
+            [arr[i], arr[j]] = [arr[j], arr[i]];
+            break;
+          }
+        }
+      }
+    }
+  }
+  return arr;
+}
+
+const slides = interleave(CONTENT.slides.filter(s => s.active !== false));
+
+function showSlide(index) {
+  const allEls = document.querySelectorAll('.slide');
+  allEls.forEach(el => el.classList.remove('active'));
+  allEls[index].classList.add('active');
+  current = index;
+  animateProgress();
+  clearTimeout(timer);
+  timer = setTimeout(() => showSlide((current + 1) % allEls.length), rotationMs);
+}
+
+function animateProgress() {
+  const bar = document.getElementById('progress-bar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    bar.style.transition = `width ${rotationMs}ms linear`;
+    bar.style.width = '100%';
+  }));
+}
+
 async function init() {
   const container = document.getElementById('slideshow');
-
-  // Fetch live weather (Colby, KS)
   const weatherData = await fetchWeather();
-
-  // Build all slides, inserting a weather slide every 5 content slides
   let allSlides = [];
   slides.forEach((s, i) => {
     allSlides.push(buildSlide(s));
-    if ((i + 1) % 5 === 0) {
-      allSlides.push(buildWeatherSlide(weatherData));
-    }
+    if ((i + 1) % 5 === 0) allSlides.push(buildWeatherSlide(weatherData));
   });
-  // Always ensure at least one weather slide
   if (slides.length < 5) allSlides.push(buildWeatherSlide(weatherData));
-
   allSlides.forEach(el => container.appendChild(el));
   showSlide(0);
 }
