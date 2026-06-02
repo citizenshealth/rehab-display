@@ -94,6 +94,24 @@
   .fc-temps { font-size:clamp(12px,1.3vw,18px); color:#fff; font-weight:300; }
   .fc-temps .hi { color:#f5a623; font-weight:500; }
   .fc-temps .lo { color:#7eb8f7; }
+  /* IMAGE — full bleed graphic */
+  .layout-image { align-items:stretch; }
+  .layout-image .image-inner {
+    flex:1; position:relative; overflow:hidden;
+  }
+  .layout-image .image-inner img {
+    width:100%; height:100%; object-fit:cover; display:block;
+  }
+  .layout-image .image-caption {
+    position:absolute; bottom:0; left:0; right:0;
+    padding:20px 40px;
+    background:linear-gradient(to top, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%);
+    color:#fff;
+    font-size:clamp(13px,1.4vw,20px);
+    font-weight:300;
+    letter-spacing:0.2px;
+  }
+  .layout-image .image-caption strong { font-weight:600; }
 </style>
 </head>
 <body>
@@ -307,22 +325,38 @@ const CONTENT = {
       headline: "You are slightly taller in the morning than at night.",
       body: "The <strong>intervertebral discs</strong> between your vertebrae act like sponges, absorbing fluid during rest and compressing under the weight of gravity throughout the day. Most people are about half an inch taller when they first wake up than when they go to bed."
     },
-{
-  id: "graphic-concussion", dept: "pt", layout: "image", active: true,
-  src: "https://raw.githubusercontent.com/citizenshealth/rehab-display/main/Concussion_Screenings_TV.jpg",
-  alt: "Free Baseline Concussion Screenings",
-  caption: "",
-  expires: "2026-08-09"
-},
-{
-  id: "graphic-sports-physicals", dept: "pt", layout: "image", active: true,
-  src: "https://raw.githubusercontent.com/citizenshealth/rehab-display/main/Sports_Physicals_TV_Screen.jpg",
-  alt: "Free Sports Physicals",
-  caption: "",
-  expires: "2026-08-09"
-},
-},
-},
+
+    // ── NURSES WEEK — expires end of day May 11, 2026 ───────────
+    {
+      id: "nurses-week-1", dept: "pt", layout: "split", active: true,
+      tag: "Nurses Week 2026",
+      headline: "The heart of healthcare.",
+      body: "Nurses are the constant presence in every patient's hardest moments — and the skilled, compassionate team at <strong>Citizens Health</strong> is no exception. Thank you for the care, the expertise, and the dedication you bring every single day.",
+      expires: "2026-05-12"
+    },
+    {
+      id: "nurses-week-2", dept: "cr", layout: "hero", active: true,
+      tag: "Nurses Week 2026",
+      headline: "4 million strong — and counting.",
+      body: "Nursing is the largest healthcare profession in the United States, with over <strong>4 million registered nurses</strong> serving patients in hospitals, clinics, schools, and communities across the country. This week, we celebrate every one of them.",
+      expires: "2026-05-12"
+    },
+
+    {
+      id: "graphic-concussion", dept: "pt", layout: "image", active: true,
+      src: "https://raw.githubusercontent.com/citizenshealth/rehab-display/main/Concussion_Screenings_TV.jpg",
+      alt: "Free Baseline Concussion Screenings",
+      caption: "",
+      expires: "2026-08-09"
+    },
+    {
+      id: "graphic-sports-physicals", dept: "pt", layout: "image", active: true,
+      src: "https://raw.githubusercontent.com/citizenshealth/rehab-display/main/Sports_Physicals_TV_Screen.jpg",
+      alt: "Free Sports Physicals",
+      caption: "",
+      expires: "2026-08-09"
+    },
+
     // ── STAFF SPOTLIGHTS — add yours here ─────────────────────────
     // Copy this block, fill in the fields, and set active: true
     //
@@ -334,6 +368,18 @@ const CONTENT = {
     //   bio: "Jane specializes in post-surgical rehab and sports injuries.",
     //   fun_fact: "She ran her first half marathon last spring and is training for a full.",
     //   photo: ""
+    // },
+
+    // ── CUSTOM GRAPHICS — add yours here ──────────────────────────
+    // Upload images to an /images/ folder in your GitHub repo.
+    // Best size: 1920x1080px (16:9). JPG, PNG, or WebP all work.
+    // caption is optional — leave as "" to show the image alone.
+    //
+    // {
+    //   id: "graphic-1", dept: "pt", layout: "image", active: false,
+    //   src: "images/your-graphic.jpg",
+    //   alt: "Description of the image",
+    //   caption: ""
     // },
 
   ]
@@ -414,6 +460,7 @@ function buildSlide(s) {
   else if (s.layout === 'tip')       el.innerHTML = buildTip(s, d);
   else if (s.layout === 'split')     el.innerHTML = buildSplit(s, d);
   else if (s.layout === 'spotlight') el.innerHTML = buildSpotlight(s, d);
+  else if (s.layout === 'image')     el.innerHTML = buildImage(s, d);
   return el;
 }
 
@@ -488,6 +535,15 @@ function buildSpotlight(s, d) {
     </div>`;
 }
 
+function buildImage(s, d) {
+  const caption = s.caption ? `<div class="image-caption">${s.caption}</div>` : '';
+  return `
+    <div class="image-inner">
+      <img src="${s.src}" alt="${s.alt || ''}">
+      ${caption}
+    </div>`;
+}
+
 // =====================================================================
 //  ROTATION ENGINE
 // =====================================================================
@@ -519,7 +575,19 @@ function interleave(arr) {
   return arr;
 }
 
-const slides = interleave(CONTENT.slides.filter(s => s.active !== false));
+// Filter out inactive slides and any that have passed their expiry date
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+const slides = interleave(
+  CONTENT.slides.filter(s => {
+    if (s.active === false) return false;
+    if (s.expires) {
+      const expiry = new Date(s.expires);
+      if (today >= expiry) return false;
+    }
+    return true;
+  })
+);
 
 function showSlide(index) {
   const allEls = document.querySelectorAll('.slide');
